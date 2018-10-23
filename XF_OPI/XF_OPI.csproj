@@ -45,14 +45,115 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="EditUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="EditUserForm.Designer.cs">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserMaintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMaintForm.Designer.cs">
+      <DependentUpon>UserMaintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataExport.designer.cs">
+      <DependentUpon>DataExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataIO.cs" />
+    <Compile Include="FTPConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTPConfigForm.designer.cs">
+      <DependentUpon>FTPConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTPForm.designer.cs">
+      <DependentUpon>FTPForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LOTform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LOTform.Designer.cs">
+      <DependentUpon>LOTform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lang\LangCN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LangCN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="KeyPad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyPad.designer.cs">
+      <DependentUpon>KeyPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumberPad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberPad.designer.cs">
+      <DependentUpon>NumberPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OmronFINsClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataExport.resx">
+      <DependentUpon>DataExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataExport.zh-Hans.resx">
+      <DependentUpon>DataExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUserForm.resx">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTPConfigForm.resx">
+      <DependentUpon>FTPConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTPForm.resx">
+      <DependentUpon>FTPForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LOTform.resx">
+      <DependentUpon>LOTform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-US.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang\LangCN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LangCN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.zh-Hans.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeyPad.resx">
+      <DependentUpon>KeyPad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberPad.resx">
+      <DependentUpon>NumberPad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +163,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserMaintForm.resx">
+      <DependentUpon>UserMaintForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,6 +178,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserMgmtLibrary\UserMgmtLibrary.csproj">
+      <Project>{1931d8f5-79f4-4d03-a543-f28b93c336e5}</Project>
+      <Name>UserMgmtLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserMgmtLibrary;
 
 namespace XF_OPI
 {
@@ -16,7 +17,9 @@ namespace XF_OPI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Initialize database connection
+            UserMgmtLibrary.GlobalConfig.InitializeConnections(DatabaseType.SqlServer);
+            Application.Run(new MainForm());
         }
     }
 }
