@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserMgmtLibrary.Models;
+using XFOPI_Library.Models;
 
 //*load text file
 //*convert text to list model
@@ -14,7 +14,7 @@ using UserMgmtLibrary.Models;
 //convert record to list string
 //save list string to text file, overwrite
 
-namespace UserMgmtLibrary.DataConnection.TextHelpers
+namespace XFOPI_Library.DataConnection.TextHelpers
 {
     public static class TextConnectorProcessor
     {

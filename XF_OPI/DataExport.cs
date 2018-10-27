@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using XFOPI_Library;
+using XFOPI_Library.PLCConnection;
 
 namespace XF_OPI
 {
@@ -32,8 +34,8 @@ namespace XF_OPI
             }
         }
 
-        OmronFINsClass.PLCcommand PLCcmd = new OmronFINsClass.PLCcommand();
-        OmronFINsClass Omron = new OmronFINsClass();
+        //OmronFINsClass.PLCcommand PLCcmd = new OmronFINsClass.PLCcommand();
+        //OmronFINsClass Omron = new OmronFINsClass();
         MUBAdataStructure MUBAdata = new MUBAdataStructure();
 
         private bool DistMUBAdata(string S)
@@ -157,8 +159,8 @@ namespace XF_OPI
                 string xAddrE = "";
                 string RdValue = "";
                 int MUBA = 0;
-                xAddrB = Omron.HexConvert10(MUBAdata.AddrB.ToString());
-                xAddrE = Omron.HexConvert10(MUBAdata.AddrE.ToString());
+                xAddrB = OmronFINsProcessor.HexConvert10(MUBAdata.AddrB.ToString());
+                xAddrE = OmronFINsProcessor.HexConvert10(MUBAdata.AddrE.ToString());
                  //MainForm.PlcPort.Open();
                 //ReadFromPLC();
                 //serialPort1.Open();
@@ -168,7 +170,7 @@ namespace XF_OPI
                 DistMUBAdata(RdValue);
                 MUBA = GetMUBA();
                 TBoxMUBA.Text = MUBA.ToString();
-            }catch(Exception exp) { }
+            }catch(Exception) { }
             
             
         }

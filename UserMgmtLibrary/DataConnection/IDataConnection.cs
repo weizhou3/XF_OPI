@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserMgmtLibrary.Models;
+using XFOPI_Library.Models;
 
-namespace UserMgmtLibrary.DataConnection
+namespace XFOPI_Library.DataConnection
 {
     public interface IDataConnection
     {
         UserModel CreateUser(UserModel model);
         List<UserModel> GetUsers_All();
+        List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName);
+        void SaveData(string sqlStatement, Dictionary<string, object> parameters, string connectionName);
     }
 }

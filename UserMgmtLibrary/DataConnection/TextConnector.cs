@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserMgmtLibrary.Models;
-using UserMgmtLibrary.DataConnection.TextHelpers;
+using XFOPI_Library.Models;
+using XFOPI_Library.DataConnection.TextHelpers;
 
-namespace UserMgmtLibrary.DataConnection
+namespace XFOPI_Library.DataConnection
 {
     public class TextConnector : IDataConnection
     {
@@ -44,6 +44,17 @@ namespace UserMgmtLibrary.DataConnection
         }
 
         public List<UserModel> GetUsers_All()
+        {
+            //TODO - GetUsers_All for text connector
+            throw new NotImplementedException();
+        }
+
+        public List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveData(string sqlStatement, Dictionary<string, object> parameters, string connectionName)
         {
             throw new NotImplementedException();
         }

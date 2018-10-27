@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserMgmtLibrary;
+using XFOPI_Library;
 
 namespace XF_OPI
 {
@@ -18,7 +18,10 @@ namespace XF_OPI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Initialize database connection
-            UserMgmtLibrary.GlobalConfig.InitializeConnections(DatabaseType.SqlServer);
+            
+            GlobalConfig.InitializeDBConnections(DatabaseType.Sqlite);
+            //TODO - need to add GPIB/RS232 initialization and move initialization call to START button 
+            GlobalConfig.InitializeIFConnections(TesterIFType.NIGPIB);
             Application.Run(new MainForm());
         }
     }

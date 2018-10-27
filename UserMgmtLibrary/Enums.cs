@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserMgmtLibrary
+namespace XFOPI_Library
 {
     public enum DatabaseType
     {
         SqlServer,
         Sqlite,
         TextFiles
+    }
+
+    public enum TesterIFType
+    {
+        NIGPIB,
+        RS232
     }
 }

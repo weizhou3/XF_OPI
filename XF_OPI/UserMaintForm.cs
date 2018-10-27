@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserMgmtLibrary;
-using UserMgmtLibrary.Models;
+using XFOPI_Library;
+using XFOPI_Library.Models;
 
 namespace XF_OPI
 {
     public partial class UserMaintForm : Form
     {
-        private List<UserModel> allUsers = GlobalConfig.Connection.GetUsers_All();
+        private List<UserModel> allUsers = GlobalConfig.DBConnection.GetUsers_All();
         private List<UserModel> groupUsers = new List<UserModel>();
         private List<UserModel> selectedUsers = new List<UserModel>();
         private List<GroupModel> selectedGroup = new List<GroupModel>();
@@ -80,7 +80,7 @@ namespace XF_OPI
             {
                 UserModel model = new UserModel(tBoxFN.Text, tBoxLN.Text, tBoxEmail.Text, tBoxPhone.Text, tBoxID.Text);
 
-                GlobalConfig.Connection.CreateUser(model);
+                GlobalConfig.DBConnection.CreateUser(model);
 
                 tBoxFN.Text = "";
                 tBoxLN.Text = "";

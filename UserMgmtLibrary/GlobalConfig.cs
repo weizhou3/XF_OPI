@@ -1,44 +1,68 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserMgmtLibrary.DataConnection;
+using XFOPI_Library.DataConnection;
+using XFOPI_Library.TesterIFConnection;
 
-namespace UserMgmtLibrary
+namespace XFOPI_Library
 {
     public static class GlobalConfig
     {
-        public static IDataConnection Connection { get; private set; } 
+        public static IDataConnection DBConnection { get; private set; }
+        public static ITesterIFConnection IFConnection { get; private set; }
 
-        public static void InitializeConnections(DatabaseType db)
+        public static void InitializeDBConnections(DatabaseType db)
         {
             switch (db)
             {
                 case DatabaseType.SqlServer:
                     SqlConnector sql = new SqlConnector();
-                    Connection = sql;
+                    DBConnection = sql;
                     break;
                 case DatabaseType.Sqlite:
-                    //TODO - add Sqlite connector
+                    SqliteConnector sqlite = new SqliteConnector();
+                    DBConnection = sqlite;
                     break;
                 case DatabaseType.TextFiles:
                     TextConnector text = new TextConnector();
-                    Connection = text;
+                    DBConnection = text;
                     break;
                 default:
                     break;
             }
-
-
-
-            
         }
 
-        public static string ConnString(string name)
+        internal static string LoadConnString(string id)
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
+
+        internal static DynamicParameters ToDynamicParameters(this Dictionary<string, object> p)
+        {
+            DynamicParameters output = new DynamicParameters();
+            p.ToList().ForEach(x => output.Add(x.Key, x.Value));
+            return output;
+        }
+
+        public static void InitializeIFConnections(TesterIFType IFType)
+        {
+            switch (IFType)
+            {
+                case TesterIFType.NIGPIB:
+                    NIGpibConnector gpib = new NIGpibConnector();
+                    IFConnection = gpib;
+                    break;
+                case TesterIFType.RS232:
+                    RS232Connector rs232 = new RS232Connector();
+                    IFConnection = rs232;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

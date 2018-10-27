@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserMgmtLibrary.Models;
+using XFOPI_Library.Models;
 
-namespace UserMgmtLibrary.DataConnection
+namespace XFOPI_Library.DataConnection
 {
     public class SqlConnector : IDataConnection
     {
@@ -18,11 +18,11 @@ namespace UserMgmtLibrary.DataConnection
         /// <returns>The new user's model, including the unique indentifier.</returns>
         /// 
 
-        private const string db = "XFOPI";
+        private const string db = "XFOPI_SqlServer";
 
         public UserModel CreateUser(UserModel model)
         {
-            using (IDbConnection connection=new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection=new System.Data.SqlClient.SqlConnection(GlobalConfig.LoadConnString(db)))
             {
                 var p = new DynamicParameters();
                 p.Add("@FirstName", model.FirstName);
@@ -45,12 +45,22 @@ namespace UserMgmtLibrary.DataConnection
         {
             List<UserModel> output;
 
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.LoadConnString(db)))
             {
                 output = connection.Query<UserModel>("dbo.spUsers_GetAll").ToList();
             }
 
             return output;
+        }
+
+        public List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveData(string sqlStatement, Dictionary<string, object> parameters, string connectionName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

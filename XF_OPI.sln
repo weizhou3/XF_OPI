@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XF_OPI", "XF_OPI\XF_OPI.csproj", "{980C46CA-BAF3-4B47-BB64-B5B485EF0DB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMgmtLibrary", "UserMgmtLibrary\UserMgmtLibrary.csproj", "{1931D8F5-79F4-4D03-A543-F28B93C336E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFOPI_Library", "UserMgmtLibrary\XFOPI_Library.csproj", "{1931D8F5-79F4-4D03-A543-F28B93C336E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using XFOPI_Library;
 
 namespace XF_OPI
 {
@@ -23,8 +24,8 @@ namespace XF_OPI
         }
 
         public string result { get; set; }
-        OmronFINsClass Omron = new OmronFINsClass();
-        OmronFINsClass.PLCcommand PLCcmd = new OmronFINsClass.PLCcommand();
+        //OmronFINsClass Omron = new OmronFINsClass();
+        //OmronFINsClass.PLCcommand PLCcmd = new OmronFINsClass.PLCcommand();
         DataIO DIO = new DataIO();
         DataIO.FtpSetting FtpS = new DataIO.FtpSetting();
        
