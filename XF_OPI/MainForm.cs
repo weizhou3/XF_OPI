@@ -86,5 +86,18 @@ namespace XF_OPI
             }
 
         }
+
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            SettingForm frm = new SettingForm();
+            frm.Show();
+            this.Hide();
+            frm.VisibleChanged += SubForm_VisibleChanged;
+
+        }
+        private void SubForm_VisibleChanged(object sender, EventArgs e)
+        {  
+            this.Show();
+        }
     }
 }

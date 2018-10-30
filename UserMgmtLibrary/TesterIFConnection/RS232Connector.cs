@@ -9,6 +9,7 @@ namespace XFOPI_Library.TesterIFConnection
 {
     public class RS232Connector : ITesterIFConnection
     {
+        public string Protocol { get; set; }
         public string ReadFromTester()
         {
             throw new NotImplementedException();

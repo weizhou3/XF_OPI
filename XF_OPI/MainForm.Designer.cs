@@ -45,6 +45,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNewLOT = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSetting
@@ -53,6 +55,7 @@
             resources.ApplyResources(this.btnSetting, "btnSetting");
             this.btnSetting.Name = "btnSetting";
             this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
             // btnLogoff
             // 
@@ -150,10 +153,17 @@
             this.btnNewLOT.UseVisualStyleBackColor = true;
             this.btnNewLOT.Click += new System.EventHandler(this.button2_Click);
             // 
+            // pictureBox1
+            // 
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnNewLOT);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
@@ -172,6 +182,7 @@
             this.Controls.Add(this.btnCN);
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,6 +206,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNewLOT;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

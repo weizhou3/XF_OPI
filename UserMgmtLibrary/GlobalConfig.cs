@@ -48,21 +48,51 @@ namespace XFOPI_Library
             return output;
         }
 
-        public static void InitializeIFConnections(TesterIFType IFType)
+        public static void InitializeIFConnections(TesterIFType IFType, TesterIFProtocol IFProtocol)
         {
             switch (IFType)
             {
                 case TesterIFType.NIGPIB:
                     NIGpibConnector gpib = new NIGpibConnector();
                     IFConnection = gpib;
+                    switch (IFProtocol)
+                    {
+                        case TesterIFProtocol.MTGPIB:
+                            gpib.Protocol = "MTGPIB";
+                            break;
+                        case TesterIFProtocol.RSGPIB:
+                            gpib.Protocol = "RSGPIB";
+                            break;
+                        case TesterIFProtocol.RSRS232:
+                            gpib.Protocol = "invalid";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case TesterIFType.RS232:
                     RS232Connector rs232 = new RS232Connector();
                     IFConnection = rs232;
+                    switch (IFProtocol)
+                    {
+                        case TesterIFProtocol.MTGPIB:
+                            rs232.Protocol = "invalid";
+                            break;
+                        case TesterIFProtocol.RSGPIB:
+                            rs232.Protocol = "invalid";
+                            break;
+                        case TesterIFProtocol.RSRS232:
+                            rs232.Protocol = "RSRS232";
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
             }
         }
+
+       
     }
 }

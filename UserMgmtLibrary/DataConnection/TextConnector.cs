@@ -18,7 +18,7 @@ namespace XFOPI_Library.DataConnection
         /// </summary>
         /// <param name="model">The new user's model</param>
         /// <returns>The new user's model, including unique identifier</returns>
-        public UserModel CreateUser(UserModel model)
+        public UserModel CreateUser(UserModel model, UserAccessGroup uag)
         {
             //load text file and convert text to list model
             List<UserModel> users = UsersFile.FullFilePath().LoadFile().ConvertToUserModels();

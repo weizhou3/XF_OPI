@@ -18,4 +18,18 @@ namespace XFOPI_Library
         NIGPIB,
         RS232
     }
+
+    public enum TesterIFProtocol
+    {
+        MTGPIB,
+        RSGPIB,
+        RSRS232
+    }
+
+    public enum UserAccessGroup
+    {
+        Admin,
+        Maint,
+        Operator
+    }
 }

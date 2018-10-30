@@ -14,7 +14,7 @@ namespace XFOPI_Library.DataConnection
     public class SqliteConnector : IDataConnection
     { 
         private const string db = "XFOPI_Sqlite";
-
+        
         //LoadData<UserModel>("Select * from Users", null) = List<UserModel>
         public List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName=db)
         {
@@ -39,13 +39,39 @@ namespace XFOPI_Library.DataConnection
             }
         }
 
-        public UserModel CreateUser(UserModel model)
+        /// <summary>
+        /// Create a new user. Update both Users table, GroupMembers table
+        /// </summary>
+        /// <param name="model">The new user model</param>
+        /// <returns></returns>
+        public UserModel CreateUser(UserModel model, UserAccessGroup uag)
         {
             //1.prep model data for save
-            string sql = "insert into Users (FirstName, LastName, EmailAddress, PhoneNumber, EmployeeID) " +
-                         "values (@FirstName, @LastName, @EmailAddress, @PhoneNumber, @EmployeeID)";
+            string groupName;
+            switch (uag)
+            {
+                case UserAccessGroup.Admin:
+                    groupName = "'Admin'";
+                    break;
+                case UserAccessGroup.Maint:
+                    groupName = "'Maint'";
+                    break;
+                case UserAccessGroup.Operator:
+                    groupName = "'Operator'";
+                    break;
+                default:
+                    groupName = "'Operator'";
+                    break;
+            }
 
-            Dictionary<string, object> parameters = new Dictionary<string, object>
+            int groupId;
+            string sql1 = "insert into Users (FirstName, LastName, EmailAddress, PhoneNumber, EmployeeID) " +
+                         "values (@FirstName, @LastName, @EmailAddress, @PhoneNumber, @EmployeeID)";
+            string sql2 = "SELECT max(id) from Users";//find out the lastest inserted row id in the This Connection instance
+            string sql3 = $"SELECT id from Groups where GroupName = {groupName}";
+            string sql4 = "insert into GroupMembers (GroupId, UserId) " + "values (@GroupId, @UserId)";
+
+            Dictionary<string, object> parameters1 = new Dictionary<string, object>
             {
                 { "@FirstName", model.FirstName },
                 { "@LastName", model.LastName},
@@ -53,8 +79,24 @@ namespace XFOPI_Library.DataConnection
                 { "@PhoneNumber", model.PhoneNumber},
                 { "@EmployeeID", model.EmployeeID}
             };
-            //2. call save data to sqlite
-             SaveData(sql, parameters);
+            
+            //2. call save data to Users table
+            SaveData(sql1, parameters1);
+            
+            //3. get lastest user index
+            model.id = LoadData<int>(sql2, new Dictionary<string, object>()).FirstOrDefault();
+
+            //4. find out the index of Group
+            groupId= LoadData<int>(sql3, new Dictionary<string, object>()).FirstOrDefault();
+
+            //5. save data(indexes) to GroupMembers table
+            Dictionary<string, object> parameters4 = new Dictionary<string, object>
+            {
+                { "@GroupId", groupId},
+                { "@UserId", model.id}
+            };
+            SaveData(sql4, parameters4);
+            
 
             return model;
         }

@@ -9,6 +9,8 @@ namespace XFOPI_Library.TesterIFConnection
 {
     public class NIGpibConnector : ITesterIFConnection
     {
+  
+        public string Protocol { get; set; }
         public string ReadFromTester()
         {
             //TODO -  add GPIB Write code

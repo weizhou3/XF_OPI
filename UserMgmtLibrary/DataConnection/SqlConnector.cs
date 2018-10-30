@@ -20,7 +20,7 @@ namespace XFOPI_Library.DataConnection
 
         private const string db = "XFOPI_SqlServer";
 
-        public UserModel CreateUser(UserModel model)
+        public UserModel CreateUser(UserModel model,  UserAccessGroup uag)
         {
             using (IDbConnection connection=new System.Data.SqlClient.SqlConnection(GlobalConfig.LoadConnString(db)))
             {
@@ -39,7 +39,7 @@ namespace XFOPI_Library.DataConnection
                 return model;
             }
         }
-        
+
 
         public List<UserModel> GetUsers_All()
         {

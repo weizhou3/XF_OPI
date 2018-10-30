@@ -21,7 +21,7 @@ namespace XF_OPI
             
             GlobalConfig.InitializeDBConnections(DatabaseType.Sqlite);
             //TODO - need to add GPIB/RS232 initialization and move initialization call to START button 
-            GlobalConfig.InitializeIFConnections(TesterIFType.NIGPIB);
+            GlobalConfig.InitializeIFConnections(TesterIFType.NIGPIB, TesterIFProtocol.MTGPIB);
             Application.Run(new MainForm());
         }
     }

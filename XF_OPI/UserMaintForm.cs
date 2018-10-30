@@ -79,8 +79,24 @@ namespace XF_OPI
             if (ValidateForm())
             {
                 UserModel model = new UserModel(tBoxFN.Text, tBoxLN.Text, tBoxEmail.Text, tBoxPhone.Text, tBoxID.Text);
+                UserAccessGroup uag;
+                switch (cBoxUserGroup.SelectedItem)
+                {
+                    case "Admin":
+                        uag = UserAccessGroup.Admin;
+                        break;
+                    case "Maint":
+                        uag = UserAccessGroup.Maint;
+                        break;
+                    case "Operator":
+                        uag = UserAccessGroup.Operator;
+                        break;
+                    default:
+                        uag = UserAccessGroup.Operator;
+                        break;
+                }
 
-                GlobalConfig.DBConnection.CreateUser(model);
+                GlobalConfig.DBConnection.CreateUser(model,uag);
 
                 tBoxFN.Text = "";
                 tBoxLN.Text = "";
