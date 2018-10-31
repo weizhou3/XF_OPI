@@ -40,6 +40,15 @@ namespace XFOPI_Library.DataConnection
             }
         }
 
+        public bool DeleteUser(UserModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GroupModel> GetGroups_All()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<UserModel> GetUsers_All()
         {

@@ -38,6 +38,9 @@ namespace XFOPI_Library.Models
         /// </summary>
         public string EmployeeID { get; set; }
 
+        public string Group { get; set; }
+        public string CreateDate { get; set; }
+
         public string FullName
         {
             get
@@ -50,13 +53,14 @@ namespace XFOPI_Library.Models
         {
 
         }
-        public UserModel(string FN, string LN, string Email, string Phone, string employeeID)
+        public UserModel(string FN, string LN, string Email, string Phone, string employeeID, string group)
         {
             FirstName = FN;
             LastName = LN;
             EmailAddress = Email;
             PhoneNumber = Phone;
             EmployeeID = employeeID;
+            Group = group;
         }
     }
 

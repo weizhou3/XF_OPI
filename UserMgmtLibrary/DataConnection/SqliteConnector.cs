@@ -15,7 +15,14 @@ namespace XFOPI_Library.DataConnection
     { 
         private const string db = "XFOPI_Sqlite";
         
-        //LoadData<UserModel>("Select * from Users", null) = List<UserModel>
+        /// <summary>
+        /// Generic load data from Sqlite DB
+        /// </summary>
+        /// <typeparam name="T">Generic data type</typeparam>
+        /// <param name="sqlStatement">SQL command script in Sqlite</param>
+        /// <param name="parameters">Parameters to pass in</param>
+        /// <param name="connectionName">Sqlite DB name</param>
+        /// <returns></returns>
         public List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName=db)
         {
             //connectionName = db;
@@ -27,7 +34,12 @@ namespace XFOPI_Library.DataConnection
                 return rows.ToList();
             }
         }
-
+        /// <summary>
+        /// Generic save data to Sqlite DB
+        /// </summary>
+        /// <param name="sqlStatement">SQL command script in Sqlite</param>
+        /// <param name="parameters">Parameters to pass in</param>
+        /// <param name="connectionName">Sqlite DB name</param>
         public void SaveData(string sqlStatement, Dictionary<string, object> parameters, string connectionName=db)
         {
             //connectionName = db;
@@ -40,9 +52,10 @@ namespace XFOPI_Library.DataConnection
         }
 
         /// <summary>
-        /// Create a new user. Update both Users table, GroupMembers table
+        /// Create a new user under specific access group. Update both Users table, GroupMembers table
         /// </summary>
         /// <param name="model">The new user model</param>
+        /// <param name="uag">The user access group</param>
         /// <returns></returns>
         public UserModel CreateUser(UserModel model, UserAccessGroup uag)
         {
@@ -101,11 +114,55 @@ namespace XFOPI_Library.DataConnection
             return model;
         }
 
+        /// <summary>
+        /// Return list of all users with group information, order first by Group then by Last name 
+        /// </summary>
+        /// <returns></returns>
         public List<UserModel> GetUsers_All()
         {
-            string sql = "select * from Users order by LastName";
-            var userslist = LoadData<UserModel>(sql, new Dictionary<string, object>());
+            //1. Get all groups in Gourp table
+            var grouplist = GetGroups_All();
+            //List<int> groupidList = grouplist.Select(x => x.id).ToList();
+
+            //2. Generate Users list with group info
+            List<UserModel> userslist = new List<UserModel>();
+            foreach (GroupModel group in grouplist)
+            {
+                //get users ID in group
+                string sql2 = $"select UserId from GroupMembers where UserId is not null and GroupId = {group.id}";
+                List<int> usersId = LoadData<int>(sql2, new Dictionary<string, object>());
+                //usersId.RemoveAll(x => x == null);
+                
+                //get UserModels using users ID
+                string sql3 = $"select * from Users where id in ({string.Join(",", usersId.Select(n => n.ToString()).ToArray())}) order by LastName";
+                userslist.AddRange(LoadData<UserModel>(sql3, new Dictionary<string, object>()));
+
+                //append group name to UserModel
+                foreach (UserModel user in userslist)
+                {
+                    if(usersId.Contains(user.id))
+                        user.Group = group.GroupName;
+                }
+            }
+
+            //3. return list of UserModel with group info
             return userslist;
+        }
+
+        public bool DeleteUser(UserModel model)
+        {
+            string sql1 = $"delete from GroupMembers where UserId in ({model.id})";
+            string sql2 = $"delete from Users where id in ({model.id})";
+            SaveData(sql1, new Dictionary<string, object>());
+            SaveData(sql2, new Dictionary<string, object>());
+            return true;
+        }
+
+        public List<GroupModel> GetGroups_All()
+        {
+            string sql = "select * from Groups order by GroupName";
+            var grouplist = LoadData<GroupModel>(sql, new Dictionary<string, object>());
+            return grouplist;
         }
     }
 }

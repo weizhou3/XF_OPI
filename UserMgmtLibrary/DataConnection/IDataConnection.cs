@@ -10,7 +10,9 @@ namespace XFOPI_Library.DataConnection
     public interface IDataConnection
     {
         UserModel CreateUser(UserModel model, UserAccessGroup uag);
+        List<GroupModel> GetGroups_All();
         List<UserModel> GetUsers_All();
+        bool DeleteUser(UserModel model);
         List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName);
         void SaveData(string sqlStatement, Dictionary<string, object> parameters, string connectionName);
     }

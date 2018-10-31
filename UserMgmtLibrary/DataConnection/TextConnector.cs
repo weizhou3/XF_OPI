@@ -43,6 +43,16 @@ namespace XFOPI_Library.DataConnection
             return model;
         }
 
+        public bool DeleteUser(UserModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GroupModel> GetGroups_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<UserModel> GetUsers_All()
         {
             //TODO - GetUsers_All for text connector

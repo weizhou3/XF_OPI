@@ -14,51 +14,36 @@ namespace XF_OPI
 {
     public partial class UserMaintForm : Form
     {
-        private List<UserModel> allUsers = GlobalConfig.DBConnection.GetUsers_All();
-        private List<UserModel> groupUsers = new List<UserModel>();
-        private List<UserModel> selectedUsers = new List<UserModel>();
-        private List<GroupModel> selectedGroup = new List<GroupModel>();
+        private List<UserModel> allUsers = new List<UserModel>();//GlobalConfig.DBConnection.GetUsers_All();
+        private List<GroupModel> allGroups = new List<GroupModel>();//GlobalConfig.DBConnection.GetGroups_All();
+        private UserModel SelectedUser = new UserModel();
 
         public UserMaintForm()
         {
             InitializeComponent();
-            CreateSampleData();
+            //CreateSampleData();
             WireUpLists();
         }
 
         private void CreateSampleData()
         {
             UserModel dz = new UserModel { FirstName = "David", LastName = "Zhou" };
-            UserModel mz = new UserModel { FirstName = "Mingyao", LastName = "Zhang" };
-            groupUsers.Add(dz);
-            groupUsers.Add(mz);
-            selectedGroup.Add(new GroupModel { GroupMembers = groupUsers, GroupName = "Admin" });
+            UserModel mz = new UserModel { FirstName = "Mingy", LastName = "Zhang" };
+            allUsers.Add(dz);
+            allUsers.Add(mz);
         }
 
         private void WireUpLists()
         {
-            listBoxUsersInGroup.DataSource = null;
-            listBoxUsersInGroup.DataSource = selectedUsers;
-            listBoxUsersInGroup.DisplayMember = "FullName";
+            allUsers = GlobalConfig.DBConnection.GetUsers_All();
+            allGroups= GlobalConfig.DBConnection.GetGroups_All();
 
-            cBoxSelectedUser.DataSource = null;
-            cBoxSelectedUser.DataSource = allUsers;
-            cBoxSelectedUser.DisplayMember = "FullName";
-        }
+            dataGridViewAllUsers.DataSource = null;
+            dataGridViewAllUsers.DataSource = allUsers.Select(u=> new { Name=u.FullName,UserGroup=u.Group}).ToList();
 
-        
-
-        private void btnEditUser_Click(object sender, EventArgs e)
-        {
-            using (EditUserForm userEdit = new EditUserForm())
-            {
-                if (userEdit.ShowDialog() == DialogResult.OK) { }
-            }
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            cBoxUserGroup.DataSource = null;
+            cBoxUserGroup.DataSource = allGroups;
+            cBoxUserGroup.DisplayMember = "GroupName";
         }
 
         private void cBoxUserGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,21 +51,13 @@ namespace XF_OPI
 
         }
 
-        private void btnAddMember_Click(object sender, EventArgs e)
-        {
-            UserModel u = (UserModel)cBoxSelectedUser.SelectedItem;
-            allUsers.Remove(u);
-            selectedUsers.Add(u);
-            WireUpLists();
-        }
-
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
-                UserModel model = new UserModel(tBoxFN.Text, tBoxLN.Text, tBoxEmail.Text, tBoxPhone.Text, tBoxID.Text);
+                UserModel model = new UserModel(tBoxFN.Text, tBoxLN.Text, tBoxEmail.Text, tBoxPhone.Text, tBoxID.Text, cBoxUserGroup.Text);
                 UserAccessGroup uag;
-                switch (cBoxUserGroup.SelectedItem)
+                switch (cBoxUserGroup.Text)
                 {
                     case "Admin":
                         uag = UserAccessGroup.Admin;
@@ -103,7 +80,8 @@ namespace XF_OPI
                 tBoxEmail.Text = "";
                 tBoxPhone.Text = "";
                 tBoxID.Text = "";
-                this.DialogResult = DialogResult.OK;
+                WireUpLists();
+                //this.DialogResult = DialogResult.OK;
                 //this.Close();
             }
             else
@@ -126,7 +104,7 @@ namespace XF_OPI
             return output;
         }
 
-        private void tBoxKP_Click(object sender, EventArgs e)
+        private void TBoxKP_Click(object sender, EventArgs e)
         {
             TextBox T = (TextBox)sender;
             using (KeyPad kp = new KeyPad())
@@ -136,6 +114,25 @@ namespace XF_OPI
                     T.Text = kp.value;
                 }
             }
+        }
+
+        private void btnDeleteSelectedUser_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewAllUsers.SelectedCells.Count>0)
+            {
+                //Get selected Full Name
+                int rowIndex = dataGridViewAllUsers.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dataGridViewAllUsers.Rows[rowIndex];
+                string fullName = selectedRow.Cells[0].Value.ToString();
+
+                //Find the UserModel to delete
+                UserModel user = allUsers.Where(x => x.FullName == fullName).First();
+
+                //delete user
+                GlobalConfig.DBConnection.DeleteUser(user);
+            }
+            WireUpLists();
+            
         }
     }
 }
