@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 
 namespace XFOPI_Library.PLCConnection
 {
+    /// <summary>
+    /// The static class contains the connection and math methods used in Omron FINs communication
+    /// </summary>
     public static class OmronFINsProcessor
     {
-        public static void SendPLC(string TX, System.IO.Ports.SerialPort PlcPort)//, string FCS)//send data to PLC
+        /// <summary>
+        /// Write FINS String to PLC via SerialPort
+        /// </summary>
+        /// <param name="TX">FINS String to be sent</param>
+        /// <param name="PlcPort">Serial Port PLC is connected to</param>
+        public static void SendPLC(string TX, System.IO.Ports.SerialPort PlcPort)
         {
             string BufferTX;
             string FCS;
@@ -27,7 +35,12 @@ namespace XFOPI_Library.PLCConnection
             }
         }
 
-        public static string ReadPLC(System.IO.Ports.SerialPort PlcPort)//read PLC response
+        /// <summary>
+        /// Read PLC via SerialPort
+        /// </summary>
+        /// <param name="PlcPort">Serial Port address</param>
+        /// <returns></returns>
+        public static string ReadPLC(System.IO.Ports.SerialPort PlcPort)
         {
             string FCS_rxd;
             string FCS = "";
@@ -73,6 +86,15 @@ namespace XFOPI_Library.PLCConnection
             }
         }
 
+        /// <summary>
+        /// Generic write data string to PLC memory area
+        /// </summary>
+        /// <param name="MemoryArea">PLC memory area: CIO,WR,HR,AR,DM</param>
+        /// <param name="xBeginAddress">The PLC hex address hhhh of first word to write</param>
+        /// <param name="xEndAddress">The PLC hex address hhhh of last word to write</param>
+        /// <param name="StoWrt">Data string to be sent</param>
+        /// <param name="PlcPort">PLC serial port name</param>
+        /// <returns>True: write successful False: Write failed</returns>
         public static bool GenericWrtPLC(string MemoryArea, string xBeginAddress, string xEndAddress, string StoWrt, System.IO.Ports.SerialPort PlcPort)
         {
             string MA = null;
@@ -95,11 +117,17 @@ namespace XFOPI_Library.PLCConnection
                     MA = "82";
                     break;
             }
-            count = Convert.ToString((Convert.ToInt32(xEndAddress, 16) - Convert.ToInt32(xBeginAddress, 16)), 16).PadRight(6, '0');
+            count = Convert.ToString((Convert.ToInt32(xEndAddress, 16) - Convert.ToInt32(xBeginAddress, 16) + 1), 16).PadLeft(4, '0');
+            xBeginAddress = xBeginAddress.PadRight(6, '0');
             try
             {
                 SendPLC(OmronFINsClass.FINSh + OmronFINsClass.Wrt + MA + xBeginAddress + count + StoWrt, PlcPort);
-                return true;
+                Thread.Sleep(10);
+                string RXS = ReadPLC(PlcPort);
+                if (RXS == "")
+                    return true;
+                else
+                    return false;
             }
             catch (Exception)
             {
@@ -107,6 +135,14 @@ namespace XFOPI_Library.PLCConnection
             }
         }
 
+        /// <summary>
+        /// Generic read data string from PLC memory area
+        /// </summary>
+        /// <param name="MemoryArea">PLC memory area: CIO,WR,HR,AR,DM</param>
+        /// <param name="xBeginAddress">The PLC hex address hhhh of first word to read</param>
+        /// <param name="xEndAddress">The PLC hex address hhhh of last word to read</param>
+        /// <param name="PlcPort">PLC serial port name</param>
+        /// <returns>Data string read from PLC</returns>
         public static string GenericRdPLC(string MemoryArea, string xBeginAddress, string xEndAddress, System.IO.Ports.SerialPort PlcPort)
         {
             string MA = null;
@@ -142,12 +178,17 @@ namespace XFOPI_Library.PLCConnection
                     return result;
 
             }
-            catch (Exception)
+            catch (Exception exp)
             {
                 return null;
             }
         }
 
+        /// <summary>
+        /// Return the FCS check of a string
+        /// </summary>
+        /// <param name="S">String to be checked</param>
+        /// <returns>FCS check result</returns>
         public static string GetFCS(string S) //check frame check sequence
         {
             int L;
@@ -171,19 +212,57 @@ namespace XFOPI_Library.PLCConnection
             return FCS;
         }
 
-        public static string HexConvert2(string str2)//convert binary string to hex string
+        /// <summary>
+        /// Convert Word string to string array, each index contains a Word
+        /// </summary>
+        /// <param name="S">Word string</param>
+        /// <returns>Array of Words</returns>
+        public static string[] ConvWordStrToWordArray(string S)
+        {
+            if (S.Length > 512*4)
+            {
+                return null;
+            }
+            else
+            {
+                string[] StrArray=new string[512];
+                for (int i = 0; i < S.Length / 4 - 1; i++)
+                {
+                    StrArray[i] = S.Substring(4 + 4 * i, 4);
+                }
+                return StrArray;
+            }
+
+        }
+
+        /// <summary>
+        /// Convert Binary string to Hex string
+        /// </summary>
+        /// <param name="str2">Binary string</param>
+        /// <returns>Hex string</returns>
+        public static string HexConvert2(string str2)
         {
             string str16 = Convert.ToInt32(str2, 2).ToString("X");
             return str16;
         }
 
-        public static string HexConvert10(string str10)//convert decimal string to hex string
+        /// <summary>
+        /// Convert Decimal string to Hex string
+        /// </summary>
+        /// <param name="str10">Decimal string</param>
+        /// <returns>Hex string</returns>
+        public static string HexConvert10(string str10)
         {
             string str16 = Convert.ToInt32(str10, 10).ToString("X");
             return str16;
         }
 
-        public static string BinaryConvert16(string str16)//convert Hexdecimal string to binary string
+        /// <summary>
+        /// Convert Hex string to Binary string
+        /// </summary>
+        /// <param name="str16">Hex string</param>
+        /// <returns>Binary string</returns>
+        public static string BinaryConvert16(string str16)
         {
             //string str2 = Convert.ToInt64(str16, 16).ToString();
             string str2 = String.Join(String.Empty,
@@ -192,13 +271,25 @@ namespace XFOPI_Library.PLCConnection
             return str2;
         }
 
-        public static string ReplaceAt(string s, int index, char newChar)//replace char at s.index with newChar
+        /// <summary>
+        /// Replace Char at S.index with newChar
+        /// </summary>
+        /// <param name="s">String to be modified</param>
+        /// <param name="index">Index of the Char to be repalced</param>
+        /// <param name="newChar">New Char</param>
+        /// <returns></returns>
+        public static string ReplaceAt(string s, int index, char newChar)//
         {
             char[] chars = s.ToCharArray();
             chars[index] = newChar;
             return new string(chars);
         }
 
+        /// <summary>
+        /// Convert Binary string to ASCII string
+        /// </summary>
+        /// <param name="bin">Binary string</param>
+        /// <returns>ASCII string</returns>
         public static string BinaryToASCII(string bin)
         {
             string ascii = string.Empty;
@@ -211,6 +302,11 @@ namespace XFOPI_Library.PLCConnection
             return ascii;
         }
 
+        /// <summary>
+        /// Convert Binary to Decimal string
+        /// </summary>
+        /// <param name="bin">Binary string</param>
+        /// <returns>Decimal string</returns>
         public static int BinaryToDecimal(string bin)
         {
             int binLength = bin.Length;

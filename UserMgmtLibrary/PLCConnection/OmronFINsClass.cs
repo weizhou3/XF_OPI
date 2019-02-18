@@ -10,19 +10,30 @@ using System.Threading;
 
 namespace XFOPI_Library
 {
+    /// <summary>
+    /// A static class stores Constants used in Omron FINs communication 
+    /// </summary>
     public static class OmronFINsClass
     {
         public const string FINSh = "@00FA000000000";//unit# 00, header code = FA, response time = 0x10ms, ICF, DA2, SA2, SID
         public const string Wrt = "0102";
         public const string Rd = "0101";
-        public const string DM = "DM";
-        public const string WR = "WR";
-        public const string HR = "HR";
+        public const string DM = "82";
+        public const string WR = "B1";
+        public const string HR = "B2";
 
         public const string getMUBA = FINSh + Rd + DM + "16A900" + "0023";//D5801~5835
         public const string getPLCD = FINSh + "010182271100000A";//D10001~10010: temperature, 10 words
         public const string getPLCH = FINSh + "0101B201AE000001";//H430: Comm mode, 1 word 
         public const string getPLCW = FINSh + "0101B1017C00000C";
+
+        //The max read per FINS cmd is 498 words
+        public const string GetTop300_B1 = FINSh + Rd + WR +"000000"+"012C";//read W0~W299
+        public const string GetBottom_B1 = FINSh + Rd + WR + "012C00" + "00D4";//read W300~W511
+
+        public const string GetTop300_B2 = FINSh + Rd + HR + "000000" + "012C";//read H0~H299
+        public const string GetBottom_B2 = FINSh + Rd + HR + "012C00" + "00D4";//read H300~H511
+
         public const string getPLCCW = FINSh + "0101B1017B000005"; //W area W379~W383, W379 is the control unit
         public const string setPLCW379 = FINSh + "0102B1017B000001";//W379 1 word
         public const string setPLCW = FINSh + "0102B10180000008";//W384~391: BIN EOT, 8 words

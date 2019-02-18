@@ -1,0 +1,5 @@
+--find duplicate records
+select AlarmDescription from AlarmCode where AlarmDescription in 
+(select AlarmDescription from AlarmCode group by AlarmDescription having count(*)>1) 
+
+--

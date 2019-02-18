@@ -11,11 +11,22 @@ using System.Resources;
 using System.Threading;
 using System.Reflection;
 using System.Globalization;
+using XFOPI_Library.Models.SG2000;
+using XFOPI_Library;
+
+//TODO - Password login. Lock user controls. Auto-timed log off
+//TODO - add recipe management
+//TODO - add production data model and export method
 
 namespace XF_OPI
 {
     public partial class MainForm : Form
     {
+        public List<TypeUintModel> AllTypeUint = new List<TypeUintModel>();
+        public List<TypeBoolModel> AllTypeBool = new List<TypeBoolModel>();
+        public List<TypeUshortModel> AllTypeUshort = new List<TypeUshortModel>();
+        public List<AlarmCodeModel> AllAlarms = new List<AlarmCodeModel>();
+       
 
         public MainForm()
         {
@@ -98,6 +109,45 @@ namespace XF_OPI
         private void SubForm_VisibleChanged(object sender, EventArgs e)
         {  
             this.Show();
+        }
+
+        private void TestPLC_Click(object sender, EventArgs e)
+        {
+            PLCPort.Open();
+            
+
+            using (TestPLCConn TP = new TestPLCConn())
+            {
+                TP.setSerialPort(PLCPort);
+                if (TP.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    PLCPort.Close();
+                }
+            }
+        }
+
+        private void btnInitialModels_Click(object sender, EventArgs e)
+        {
+            AllTypeUint = GlobalConfig.DBConnection.GetTypeUint_All();
+            AllAlarms = GlobalConfig.DBConnection.GetAlarmCodes_All();
+
+            dataGridViewAllTypeUint.DataSource = null;
+            dataGridViewAllTypeUint.DataSource = AllTypeUint.Select(u => new
+            {
+                Name = u.Name,
+                WriteOnStop = u.WrtOnStop,
+                WriteOnStart = u.WrtOnStart,
+                WriteOnRun = u.WrtOnRun
+            }).ToList();
+
+            dataGridViewAllAlarms.DataSource = null;
+            dataGridViewAllAlarms.DataSource = AllAlarms.Select(u => new
+            {
+                Name = u.AlarmCodeName,
+                Description = u.AlarmDescription
+            }).ToList();
+
+
         }
     }
 }

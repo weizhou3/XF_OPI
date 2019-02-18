@@ -93,7 +93,15 @@ namespace XFOPI_Library
             }
         }
 
+        public static string ReplaceCommonEscapeSequences(string s)
+        {
+            return s.Replace("\\n", "\n").Replace("\\r", "\r");
+        }
 
+        public static string InsertCommonEscapeSequences(string s)
+        {
+            return s.Replace("\n", "\\n").Replace("\r", "\\r");
+        }
 
     }
 }

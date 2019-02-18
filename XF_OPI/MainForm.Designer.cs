@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnSetting = new System.Windows.Forms.Button();
             this.btnLogoff = new System.Windows.Forms.Button();
@@ -45,8 +46,17 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNewLOT = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.PLCPort = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.TestPLC = new System.Windows.Forms.Button();
+            this.btnInitialModels = new System.Windows.Forms.Button();
+            this.dataGridViewAllTypeUint = new System.Windows.Forms.DataGridView();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dataGridViewAllAlarms = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTypeUint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllAlarms)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSetting
@@ -153,17 +163,58 @@
             this.btnNewLOT.UseVisualStyleBackColor = true;
             this.btnNewLOT.Click += new System.EventHandler(this.button2_Click);
             // 
-            // pictureBox1
+            // PLCPort
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
+            this.PLCPort.BaudRate = 115200;
+            this.PLCPort.DataBits = 7;
+            this.PLCPort.Parity = System.IO.Ports.Parity.Even;
+            this.PLCPort.PortName = "COM4";
+            this.PLCPort.StopBits = System.IO.Ports.StopBits.Two;
+            // 
+            // TestPLC
+            // 
+            resources.ApplyResources(this.TestPLC, "TestPLC");
+            this.TestPLC.Name = "TestPLC";
+            this.TestPLC.UseVisualStyleBackColor = true;
+            this.TestPLC.Click += new System.EventHandler(this.TestPLC_Click);
+            // 
+            // btnInitialModels
+            // 
+            resources.ApplyResources(this.btnInitialModels, "btnInitialModels");
+            this.btnInitialModels.Name = "btnInitialModels";
+            this.btnInitialModels.UseVisualStyleBackColor = true;
+            this.btnInitialModels.Click += new System.EventHandler(this.btnInitialModels_Click);
+            // 
+            // dataGridViewAllTypeUint
+            // 
+            this.dataGridViewAllTypeUint.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridViewAllTypeUint, "dataGridViewAllTypeUint");
+            this.dataGridViewAllTypeUint.Name = "dataGridViewAllTypeUint";
+            this.dataGridViewAllTypeUint.RowTemplate.Height = 28;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // dataGridViewAllAlarms
+            // 
+            this.dataGridViewAllAlarms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridViewAllAlarms, "dataGridViewAllAlarms");
+            this.dataGridViewAllAlarms.Name = "dataGridViewAllAlarms";
+            this.dataGridViewAllAlarms.RowTemplate.Height = 28;
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.dataGridViewAllAlarms);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.dataGridViewAllTypeUint);
+            this.Controls.Add(this.btnInitialModels);
+            this.Controls.Add(this.TestPLC);
             this.Controls.Add(this.btnNewLOT);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
@@ -182,7 +233,9 @@
             this.Controls.Add(this.btnCN);
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTypeUint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllAlarms)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,7 +259,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNewLOT;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.IO.Ports.SerialPort PLCPort;
+        private System.IO.Ports.SerialPort serialPort2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button TestPLC;
+        private System.Windows.Forms.Button btnInitialModels;
+        private System.Windows.Forms.DataGridView dataGridViewAllTypeUint;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.DataGridView dataGridViewAllAlarms;
     }
 }
 

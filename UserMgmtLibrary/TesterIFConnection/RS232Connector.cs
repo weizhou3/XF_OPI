@@ -15,7 +15,17 @@ namespace XFOPI_Library.TesterIFConnection
             throw new NotImplementedException();
         }
 
+        public void RunTestSequence(TesterIFType iFType, TesterIFProtocol iFProtocol)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool SendToTester(string String)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopTestSequence()
         {
             throw new NotImplementedException();
         }

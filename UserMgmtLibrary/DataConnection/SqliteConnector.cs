@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XFOPI_Library.Models;
+using XFOPI_Library.Models.SG2000;
 
 namespace XFOPI_Library.DataConnection
 {
@@ -56,7 +57,7 @@ namespace XFOPI_Library.DataConnection
         /// </summary>
         /// <param name="model">The new user model</param>
         /// <param name="uag">The user access group</param>
-        /// <returns></returns>
+        /// <returns>The complete User Model</returns>
         public UserModel CreateUser(UserModel model, UserAccessGroup uag)
         {
             //1.prep model data for save
@@ -163,6 +164,34 @@ namespace XFOPI_Library.DataConnection
             string sql = "select * from Groups order by GroupName";
             var grouplist = LoadData<GroupModel>(sql, new Dictionary<string, object>());
             return grouplist;
+        }
+
+        public List<TypeBoolModel> GetTypeBool_All()
+        {
+            string sql = "select * from TypeBool order by Name";
+            var TypeBoollist = LoadData<TypeBoolModel>(sql, new Dictionary<string, object>());
+            return TypeBoollist;
+        }
+
+        public List<TypeUintModel> GetTypeUint_All()
+        {
+            string sql = "select * from TypeUint order by Name";
+            var TypeUintlist = LoadData<TypeUintModel>(sql, new Dictionary<string, object>());
+            return TypeUintlist;
+        }
+
+        public List<TypeUshortModel> GetTypeUshort_All()
+        {
+            string sql = "select * from TypeUshort order by Name";
+            var TypeUshortlist = LoadData<TypeUshortModel>(sql, new Dictionary<string, object>());
+            return TypeUshortlist;
+        }
+
+        public List<AlarmCodeModel> GetAlarmCodes_All()
+        {
+            string sql = "select * from AlarmCode order by AlarmCodeName";
+            var TypeAlarmCodelist = LoadData<AlarmCodeModel>(sql, new Dictionary<string, object>());
+            return TypeAlarmCodelist;
         }
     }
 }

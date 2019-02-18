@@ -1,0 +1,111 @@
+id,AlarmCodeName,AlarmDescription
+1,LoaderHomeError,Loader Home Can not complete. Wrong position. Check and Reset Motor.
+2,NoEndingLoaderMotor,"Loader Motor started but without end. Checking setting, etc."
+3,LoaderMotorSetError,Check Loader parameter no set or setting Error
+4,LoaderStackJamTubeDown,Check Magazine assembly and sensor
+5,LoaderJamTubeYUp,Check transport and its tube sensor
+6,LoaderNoTubeYUpLeft,Loader left empty tube - check and sensor
+7,LoaderNoTubeYUpRight,Loader right empty tube - check and sensor
+8,LoaderLostVerticalTubeLeft,Check Tube sensor and tube left
+9,LoaderLostVerticalTubeRight,Check Tube sensor and tube Right
+10,LoaderEntryTrackJamLeft,Left input track detect empty component or input track Jam detect track Jam clearer
+11,LoaderEntryTrackJamRight,Right input track detect empty component or input track Jam detect track Jam clearer
+12,LoaderRotateWrongLeft,Left rotate tube not reach the sensor - check and air pressure and sensor
+13,LoaderRotateWrongRight,Right rotate tube not reach the sensor - check and air pressure and sensor
+14,TrackInputJamLeft,"Left Input track empty did not detected the passing component should be - check the assembly, alignment and sensor"
+15,TrackInputJamRight,"Right Input track empty did not detected the passing component should be - check the assembly, alignment and sensor"
+16,LoaderNeedReSet,Loader request to clear the tube out of stack and Re-Start
+17,JamBeforeSingulatorLeft,"Should be units in chamber track but Singulator detect empty, then Jam before Singulator - left"
+18,JamBeforeSingulatorRight,"Should be units in chamber track but Singulator detect empty, then Jam before Singulator - Right"
+19,SingulatorJamL,"Singulator fail to separate the unit, and the unit stuck there - left"
+20,SingulatorJamR,"Singulator fail to separate the unit, and the unit stuck there - right"
+21,JamSingulatorCS1,Singulator drop unit not reach CS1
+22,JamSingulatorCS2,Singulator drop unit not reach CS2
+23,JamSingulatorCS3,Singulator drop unit not reach CS3
+24,JamSingulatorCS4,Singulator drop unit not reach CS4
+25,JamCS3CS1,CS3 drop unit not reach CS1
+26,JamCS4CS2,CS4 drop unit not reach CS2
+27,LostCS1DropUnit,CS1 drop unit but exit sensor detect empty unit
+28,LostCS2DropUnit,CS2 drop unit but exit sensor detect empty unit
+29,LostCS3DropUnit,CS3 drop unit but not see the unit go out
+30,LostCS4DropUnit,CS4 drop unit but not see the unit go out
+31,JamCS1EntrySensor,"CS1Entry Sensor blocked, check track and adjust amplifier"
+32,JamCS2EntrySensor,"CS2Entry Sensor blocked, check track and adjust amplifier"
+33,JamCS3EntrySensor,"CS3Entry Sensor blocked, check track and adjust amplifier"
+34,JamCS4EntrySensor,"CS4Entry Sensor blocked, check track and adjust amplifier"
+35,JamCS1ExitSensor,"CS1Exit Sensor blocked, check track and adjust amplifier"
+36,JamCS2ExitSensor,"CS2Exit Sensor blocked, check track and adjust amplifier"
+37,JamPTB1,"Plunger1 not at the right position,  the sensor detect error, check plunger or sensor"
+38,JamPTB2,"Plunger2 not at the right position,  the sensor detect error, check plunger or sensor"
+39,JamPTB3,"Plunger3 not at the right position,  the sensor detect error, check plunger or sensor"
+40,JamPTB4,"Plunger4 not at the right position,  the sensor detect error, check plunger or sensor"
+41,JamCS1Turn,"CS1 drop unit, but turn shuttle detect empty"
+42,JamCS2Turn,"CS2 drop unit, but turn shuttle detect empty"
+43,JamCS3Turn,"CS3 drop unit, but turn shuttle detect empty"
+44,JamCS4Turn,"CS4 drop unit, but turn shuttle detect empty"
+45,TurnLeftUnknownUnit,"Unit come to turn left, but should not be"
+46,TurnRightUnknownUnit,"Unit come to turn right, but should not be"
+47,JamTurnLowBufLeft,Unit Jam happened between left turn and the buffer below
+48,JamTurnLowBufRight,Unit Jam happened between right turn and the buffer below
+49,BufLeftUnknownUnit,"Unit come to the buffer below left turn, but should not be"
+50,BufRightUnknownUnit,"Unit come to the buffer below right turn, but should not be"
+51,JamBufDropUnitLeft,Buffer below left turn drop unit but the unit Jam there
+52,JamBufDropUnitRight,Buffer below right turn drop unit but the unit Jam there
+53,JamBufSortLeft,The  unit from the buffer below left turn not arrive Sort
+54,JamBufSortRight,The  unit from the buffer below right turn not arrive Sort
+55,DDLeftSort,DD happened in left Sort shuttle
+56,DDRightSort,DD happened in right Sort shuttle
+57,JamInSortLeft,Detect the unit in left sort shuttle but should not be
+58,JamInSortRight,Detect the unit in right sort shuttle but should not be
+59,JamSortDropUnitLeft,"Left sort shuttle drop unit, but the edge sensor not detect the passing unit"
+60,JamSortDropUnitRight,"Right sort shuttle drop unit, but the edge sensor not detect the passing unit"
+61,JamTurnEntryLeft,"Jam above the left turn shuttle, when unit get in"
+62,JamTurnEntryRight,"Jam above the right turn shuttle, when unit get in"
+63,NoExitForBINCS1,"Exit not set for BIN which CS1 got, check setting"
+64,NoExitForBINCS2,"Exit not set for BIN which CS2 got, check setting"
+65,NoExitForBINCS3,"Exit not set for BIN which CS3 got, check setting"
+66,NoExitForBINCS4,"Exit not set for BIN which CS4 got, check setting"
+67,SOTStuckCS1,"CS1 SOT could not deliver, as the condition not allow to be "
+68,SOTStuckCS2,"CS2 SOT could not deliver, as the condition not allow to be"
+69,SOTStuckCS3,"CS3 SOT could not deliver, as the condition not allow to be"
+70,SOTStuckCS4,"CS4 SOT could not deliver, as the condition not allow to be"
+71,BINNotGoneCS1,"BIN signal remains on CS1, it may create error for test"
+72,BINNotGoneCS2,"BIN signal remains on CS2, it may create error for test"
+73,BINNotGoneCS3,"BIN signal remains on CS3, it may create error for test"
+74,BINNotGoneCS4,"BIN signal remains on CS4, it may create error for test"
+75,NoBINForCS1,CS1 test do not have BIN comes in
+76,NoBINForCS2,CS2 test do not have BIN comes in
+77,NoBINForCS3,CS3 test do not have BIN comes in
+78,NoBINForCS4,CS4 test do not have BIN comes in
+79,MultiBINCS1,CS1 test get more than 1 BIN come in
+80,MultiBINCS2,CS2 test get more than 1 BIN come in
+81,MultiBINCS3,CS3 test get more than 1 BIN come in
+82,MultiBINCS4,CS4 test get more than 1 BIN come in
+83,NoEOTForCS1,CS1 not get End of Test signal
+84,NoEOTForCS2,CS2 not get End of Test signal
+85,NoEOTForCS3,CS3 not get End of Test signal
+86,NoEOTForCS4,CS4 not get End of Test signal
+87,TestFailsCS1,Test on CS1 remains fail result
+88,TestFailsCS2,Test on CS2 remains fail result
+89,TestFailsCS3,Test on CS3 remains fail result
+90,TestFailsCS4,Test on CS4 remains fail result
+91,GPIBNotReady,GPIB can not deliver as port not ready
+92,GPIBNoEnd,GPIB delivered SOT without response back
+93,UnLoaderMotorErr,UnLoader Motor HOME action not arrive the place
+94,UnLoaderMotorNotStop,UnLoader Motor continue to run. Not correct
+95,UnLoaderMotorSetErr,UnLoader setting parameter not right
+96,UnLoaderStackTubeStuck,UnLoader Stack can not put the tube down to bottom
+97,UnLoaderStackTubeJamDown,"UnLoader stack tube Jam put down, not reach the bottom"
+98,AExitJam,Unit Jam at A exit
+99,MExitJam,Unit Jam at M exit
+100,NoExitRunExercise,Should set the exit to run exercise the handler
+101,SettingErr,The is error to run sites and/or co-site mode
+102,JamSortEdge,"Jam at the sort shuttle edge, shuttle can not move"
+103,LoaderEmpty,"Loader stack run out of tube, no input"
+104,UnLoaderEmpty,"UnLoader Stack run out of tube, request for output"
+105,WaitM1,M1 request tube or tube full
+106,WaitM2,M2 request tube or tube full
+107,WaitM3,M3 request tube or tube full
+108,WaitM4,M4 request tube or tube full
+109,ABufFull,"A exit buffer track full, need to release"
+110,PlungerLowSpeed,"Plunger move speed to slow, under the setting limit"

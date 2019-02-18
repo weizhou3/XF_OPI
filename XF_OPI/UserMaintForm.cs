@@ -134,5 +134,15 @@ namespace XF_OPI
             WireUpLists();
             
         }
+
+        private void UserMaintForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewAllUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

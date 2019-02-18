@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="XF_OPI" GeneratedClassName="UserSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TesterIFProtocol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MTGPIB</Value>
+    </Setting>
+    <Setting Name="TestHandlingMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Synchronous</Value>
+    </Setting>
+    <Setting Name="TesterIFType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NIGPIB</Value>
+    </Setting>
+    <Setting Name="DatabaseType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sqlite</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

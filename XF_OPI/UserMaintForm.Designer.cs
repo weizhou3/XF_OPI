@@ -45,6 +45,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.dataGridViewAllUsers = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllUsers)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // label3
             // 
+            this.label3.AccessibleRole = System.Windows.Forms.AccessibleRole.Cursor;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(594, 30);
@@ -72,9 +74,9 @@
             // btnDeleteSelectedUser
             // 
             this.btnDeleteSelectedUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteSelectedUser.Location = new System.Drawing.Point(749, 564);
+            this.btnDeleteSelectedUser.Location = new System.Drawing.Point(704, 555);
             this.btnDeleteSelectedUser.Name = "btnDeleteSelectedUser";
-            this.btnDeleteSelectedUser.Size = new System.Drawing.Size(247, 59);
+            this.btnDeleteSelectedUser.Size = new System.Drawing.Size(292, 74);
             this.btnDeleteSelectedUser.TabIndex = 13;
             this.btnDeleteSelectedUser.Text = "Delete Selected User";
             this.btnDeleteSelectedUser.UseVisualStyleBackColor = true;
@@ -235,18 +237,32 @@
             this.dataGridViewAllUsers.RowTemplate.Height = 28;
             this.dataGridViewAllUsers.Size = new System.Drawing.Size(396, 477);
             this.dataGridViewAllUsers.TabIndex = 38;
+            this.dataGridViewAllUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAllUsers_CellContentClick);
+            // 
+            // label2
+            // 
+            this.label2.AccessibleRole = System.Windows.Forms.AccessibleRole.Cursor;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(497, 654);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(582, 26);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Cautious! Selected User will be deleted permanently!!";
             // 
             // UserMaintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 700);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridViewAllUsers);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnDeleteSelectedUser);
             this.Controls.Add(this.label3);
             this.Name = "UserMaintForm";
             this.Text = "Users Maintenance";
+            this.Load += new System.EventHandler(this.UserMaintForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllUsers)).EndInit();
@@ -273,5 +289,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dataGridViewAllUsers;
+        private System.Windows.Forms.Label label2;
     }
 }

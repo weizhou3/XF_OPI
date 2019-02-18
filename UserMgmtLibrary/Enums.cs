@@ -16,14 +16,16 @@ namespace XFOPI_Library
     public enum TesterIFType
     {
         NIGPIB,
-        RS232
+        RS232,
+        TTL
     }
 
     public enum TesterIFProtocol
     {
         MTGPIB,
         RSGPIB,
-        RSRS232
+        RSRS232,
+        TTL
     }
 
     public enum UserAccessGroup
@@ -31,5 +33,13 @@ namespace XFOPI_Library
         Admin,
         Maint,
         Operator
+    }
+
+    public enum TestHandlingMode
+    {
+        Synchronous,
+        Asynchronous,
+        Serial,
+        Single
     }
 }

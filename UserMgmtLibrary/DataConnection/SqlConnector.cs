@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XFOPI_Library.Models;
+using XFOPI_Library.Models.SG2000;
 
 namespace XFOPI_Library.DataConnection
 {
@@ -45,7 +46,27 @@ namespace XFOPI_Library.DataConnection
             throw new NotImplementedException();
         }
 
+        public List<AlarmCodeModel> GetAlarmCodes_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<GroupModel> GetGroups_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TypeBoolModel> GetTypeBool_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TypeUintModel> GetTypeUint_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TypeUshortModel> GetTypeUshort_All()
         {
             throw new NotImplementedException();
         }
