@@ -15,12 +15,16 @@ namespace XFOPI_Library
     /// </summary>
     public static class OmronFINsClass
     {
+        public const int Size_WR = 512;
+        public const int Width_Word = 16;
         public const string FINSh = "@00FA000000000";//unit# 00, header code = FA, response time = 0x10ms, ICF, DA2, SA2, SID
         public const string Wrt = "0102";
         public const string Rd = "0101";
-        public const string DM = "82";
-        public const string WR = "B1";
-        public const string HR = "B2";
+        public const string DM = "82";//DM Area, Word address D00000-D32767/000000-7FFF00
+        public const string WR = "B1";//Work Area, Word address W000-W511/000000-01FF00
+        public const string WR_bit = "31";//Work Area, Bit address W00000-W51115/000000-01FF0F
+        public const string HR = "B2";//Holding Area, Word address H000-H511/000000-01FF00
+        public const string HR_bit = "32";//Holding Area, Bit address H00000-H51115/000000-01FF0F
 
         public const string getMUBA = FINSh + Rd + DM + "16A900" + "0023";//D5801~5835
         public const string getPLCD = FINSh + "010182271100000A";//D10001~10010: temperature, 10 words

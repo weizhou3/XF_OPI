@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XFOPI_Library.Models
 {
-    public class TestCommDataModel
+    public class GpibCommDataModel
     {
         public int[] SOT { get; set; }
         public int[] BIN { get; set; }

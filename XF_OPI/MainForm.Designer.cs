@@ -54,6 +54,14 @@
             this.dataGridViewAllTypeUint = new System.Windows.Forms.DataGridView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dataGridViewAllAlarms = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tbDataName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnSetValue = new System.Windows.Forms.Button();
+            this.cbDataValue = new System.Windows.Forms.ComboBox();
+            this.lblWAddress = new System.Windows.Forms.Label();
+            this.lblValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTypeUint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllAlarms)).BeginInit();
@@ -206,10 +214,69 @@
             this.dataGridViewAllAlarms.Name = "dataGridViewAllAlarms";
             this.dataGridViewAllAlarms.RowTemplate.Height = 28;
             // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // tbDataName
+            // 
+            resources.ApplyResources(this.tbDataName, "tbDataName");
+            this.tbDataName.Name = "tbDataName";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // btnSetValue
+            // 
+            resources.ApplyResources(this.btnSetValue, "btnSetValue");
+            this.btnSetValue.Name = "btnSetValue";
+            this.btnSetValue.UseVisualStyleBackColor = true;
+            this.btnSetValue.Click += new System.EventHandler(this.btnSetValue_Click);
+            // 
+            // cbDataValue
+            // 
+            this.cbDataValue.AllowDrop = true;
+            this.cbDataValue.FormattingEnabled = true;
+            this.cbDataValue.Items.AddRange(new object[] {
+            resources.GetString("cbDataValue.Items"),
+            resources.GetString("cbDataValue.Items1")});
+            resources.ApplyResources(this.cbDataValue, "cbDataValue");
+            this.cbDataValue.Name = "cbDataValue";
+            // 
+            // lblWAddress
+            // 
+            resources.ApplyResources(this.lblWAddress, "lblWAddress");
+            this.lblWAddress.BackColor = System.Drawing.Color.White;
+            this.lblWAddress.Name = "lblWAddress";
+            // 
+            // lblValue
+            // 
+            resources.ApplyResources(this.lblValue, "lblValue");
+            this.lblValue.BackColor = System.Drawing.Color.White;
+            this.lblValue.Name = "lblValue";
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblValue);
+            this.Controls.Add(this.lblWAddress);
+            this.Controls.Add(this.cbDataValue);
+            this.Controls.Add(this.btnSetValue);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tbDataName);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridViewAllAlarms);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.dataGridViewAllTypeUint);
@@ -267,6 +334,14 @@
         private System.Windows.Forms.DataGridView dataGridViewAllTypeUint;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.DataGridView dataGridViewAllAlarms;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox tbDataName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnSetValue;
+        private System.Windows.Forms.ComboBox cbDataValue;
+        private System.Windows.Forms.Label lblWAddress;
+        private System.Windows.Forms.Label lblValue;
     }
 }
 

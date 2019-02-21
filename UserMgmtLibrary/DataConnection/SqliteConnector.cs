@@ -166,6 +166,10 @@ namespace XFOPI_Library.DataConnection
             return grouplist;
         }
 
+        /// <summary>
+        /// Import all TypeBool Values from DB
+        /// </summary>
+        /// <returns>List of TypeBoolModels</returns>
         public List<TypeBoolModel> GetTypeBool_All()
         {
             string sql = "select * from TypeBool order by Name";
@@ -192,6 +196,24 @@ namespace XFOPI_Library.DataConnection
             string sql = "select * from AlarmCode order by AlarmCodeName";
             var TypeAlarmCodelist = LoadData<AlarmCodeModel>(sql, new Dictionary<string, object>());
             return TypeAlarmCodelist;
+        }
+
+        public List<PlcDataAddressRecordModel> GetTypeBoolAddressRecord_All()
+        {
+            string sql = "select * from TypeBoolAddress order by id";
+            return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());            
+        }
+
+        public List<PlcDataAddressRecordModel> GetTypeUshortAddressRecord_All()
+        {
+            string sql = "select * from TypeUshortAddress order by DataName";
+            return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<PlcDataAddressRecordModel> GetTypeUintAddressRecord_All()
+        {
+            string sql = "select * from TypeUintAddress order by DataName";
+            return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());
         }
     }
 }

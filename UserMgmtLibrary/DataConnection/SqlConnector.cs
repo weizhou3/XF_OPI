@@ -56,12 +56,27 @@ namespace XFOPI_Library.DataConnection
             throw new NotImplementedException();
         }
 
+        public List<PlcDataAddressRecordModel> GetTypeBoolAddressRecord_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<TypeBoolModel> GetTypeBool_All()
         {
             throw new NotImplementedException();
         }
 
+        public List<PlcDataAddressRecordModel> GetTypeUintAddressRecord_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<TypeUintModel> GetTypeUint_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcDataAddressRecordModel> GetTypeUshortAddressRecord_All()
         {
             throw new NotImplementedException();
         }

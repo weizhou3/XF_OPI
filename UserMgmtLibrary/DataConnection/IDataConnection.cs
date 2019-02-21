@@ -16,6 +16,9 @@ namespace XFOPI_Library.DataConnection
         List<TypeUintModel> GetTypeUint_All();
         List<TypeBoolModel> GetTypeBool_All();
         List<TypeUshortModel> GetTypeUshort_All();
+        List<PlcDataAddressRecordModel> GetTypeBoolAddressRecord_All();
+        List<PlcDataAddressRecordModel> GetTypeUshortAddressRecord_All();
+        List<PlcDataAddressRecordModel> GetTypeUintAddressRecord_All();
         List<AlarmCodeModel> GetAlarmCodes_All();
         bool DeleteUser(UserModel model);
         List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName);
