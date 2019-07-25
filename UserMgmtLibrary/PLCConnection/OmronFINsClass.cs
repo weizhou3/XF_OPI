@@ -15,7 +15,15 @@ namespace XFOPI_Library
     /// </summary>
     public static class OmronFINsClass
     {
-        public const int Size_WR = 512;
+        public static int Size_WR = 512;
+        public static int StartingId_WR = 0;
+        public static int Size_HR = 512;
+        public static int StartingId_HR = 0;
+        public static int Size_DM = 1000;//Max size is 32768
+        public static int StartingId_DM = 17000;//0~38768
+        public const string MemArea_WR = "W";
+        public const string MemArea_HR = "H";
+        public const string MemArea_DM = "D";
         public const int Width_Word = 16;
         public const string FINSh = "@00FA000000000";//unit# 00, header code = FA, response time = 0x10ms, ICF, DA2, SA2, SID
         public const string Wrt = "0102";

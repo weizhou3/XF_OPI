@@ -42,4 +42,23 @@ namespace XFOPI_Library
         Serial,
         Single
     }
+
+    public enum PlcDataType
+    {
+        TypeBool,
+        TypeUshort,
+        TypeUint,
+        Unassigned
+    }
+
+    public enum PlcMemArea
+    {
+        CIO,
+        WR,
+        WR_bit,
+        HR,
+        HR_bit,
+        AR,
+        DM        
+    }
 }

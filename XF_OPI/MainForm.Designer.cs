@@ -38,23 +38,20 @@
             this.btnService = new System.Windows.Forms.Button();
             this.btnEN = new System.Windows.Forms.Button();
             this.btnCN = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblSetting = new System.Windows.Forms.Label();
+            this.lblLogOff = new System.Windows.Forms.Label();
+            this.lblLogOn = new System.Windows.Forms.Label();
+            this.lblUsers = new System.Windows.Forms.Label();
+            this.lblStats = new System.Windows.Forms.Label();
+            this.lblService = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNewLOT = new System.Windows.Forms.Button();
             this.PLCPort = new System.IO.Ports.SerialPort(this.components);
             this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.TestPLC = new System.Windows.Forms.Button();
-            this.btnInitialModels = new System.Windows.Forms.Button();
-            this.dataGridViewAllTypeUint = new System.Windows.Forms.DataGridView();
+            this.dataGridViewAll = new System.Windows.Forms.DataGridView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.dataGridViewAllAlarms = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.dataGridViewAllOutput = new System.Windows.Forms.DataGridView();
             this.tbDataName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,9 +59,27 @@
             this.cbDataValue = new System.Windows.Forms.ComboBox();
             this.lblWAddress = new System.Windows.Forms.Label();
             this.lblValue = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTypeUint)).BeginInit();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbUshortName = new System.Windows.Forms.TextBox();
+            this.tbUshortValue = new System.Windows.Forms.TextBox();
+            this.tbUintValue = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbUintName = new System.Windows.Forms.TextBox();
+            this.rtbOutput = new System.Windows.Forms.RichTextBox();
+            this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
+            this.buttonCylPlunger1 = new System.Windows.Forms.CheckBox();
+            this.timerUpdateRlist = new System.Windows.Forms.Timer(this.components);
+            this.progressBarDashboard = new System.Windows.Forms.ProgressBar();
+            this.btnTestAsync = new System.Windows.Forms.Button();
+            this.btnCancelAsync = new System.Windows.Forms.Button();
+            this.lblCurrentUser = new System.Windows.Forms.Label();
+            this.lblLoginName = new System.Windows.Forms.Label();
+            this.lblLoginGroup = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllAlarms)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllOutput)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSetting
@@ -81,6 +96,7 @@
             resources.ApplyResources(this.btnLogoff, "btnLogoff");
             this.btnLogoff.Name = "btnLogoff";
             this.btnLogoff.UseVisualStyleBackColor = false;
+            this.btnLogoff.Click += new System.EventHandler(this.BtnLogoff_Click);
             // 
             // btnLogon
             // 
@@ -88,6 +104,7 @@
             resources.ApplyResources(this.btnLogon, "btnLogon");
             this.btnLogon.Name = "btnLogon";
             this.btnLogon.UseVisualStyleBackColor = false;
+            this.btnLogon.Click += new System.EventHandler(this.BtnLogon_Click);
             // 
             // btnUsers
             // 
@@ -103,6 +120,7 @@
             resources.ApplyResources(this.btnStats, "btnStats");
             this.btnStats.Name = "btnStats";
             this.btnStats.UseVisualStyleBackColor = false;
+            this.btnStats.Click += new System.EventHandler(this.BtnStats_Click);
             // 
             // btnService
             // 
@@ -110,6 +128,7 @@
             resources.ApplyResources(this.btnService, "btnService");
             this.btnService.Name = "btnService";
             this.btnService.UseVisualStyleBackColor = false;
+            this.btnService.Click += new System.EventHandler(this.BtnService_Click);
             // 
             // btnEN
             // 
@@ -127,35 +146,35 @@
             this.btnCN.UseVisualStyleBackColor = false;
             this.btnCN.Click += new System.EventHandler(this.ButtonCN_Click);
             // 
-            // label1
+            // lblSetting
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblSetting, "lblSetting");
+            this.lblSetting.Name = "lblSetting";
             // 
-            // label2
+            // lblLogOff
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.lblLogOff, "lblLogOff");
+            this.lblLogOff.Name = "lblLogOff";
             // 
-            // label3
+            // lblLogOn
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.lblLogOn, "lblLogOn");
+            this.lblLogOn.Name = "lblLogOn";
             // 
-            // label4
+            // lblUsers
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.lblUsers, "lblUsers");
+            this.lblUsers.Name = "lblUsers";
             // 
-            // label5
+            // lblStats
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.lblStats, "lblStats");
+            this.lblStats.Name = "lblStats";
             // 
-            // label6
+            // lblService
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
+            resources.ApplyResources(this.lblService, "lblService");
+            this.lblService.Name = "lblService";
             // 
             // button1
             // 
@@ -186,19 +205,12 @@
             this.TestPLC.UseVisualStyleBackColor = true;
             this.TestPLC.Click += new System.EventHandler(this.TestPLC_Click);
             // 
-            // btnInitialModels
+            // dataGridViewAll
             // 
-            resources.ApplyResources(this.btnInitialModels, "btnInitialModels");
-            this.btnInitialModels.Name = "btnInitialModels";
-            this.btnInitialModels.UseVisualStyleBackColor = true;
-            this.btnInitialModels.Click += new System.EventHandler(this.btnInitialModels_Click);
-            // 
-            // dataGridViewAllTypeUint
-            // 
-            this.dataGridViewAllTypeUint.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dataGridViewAllTypeUint, "dataGridViewAllTypeUint");
-            this.dataGridViewAllTypeUint.Name = "dataGridViewAllTypeUint";
-            this.dataGridViewAllTypeUint.RowTemplate.Height = 28;
+            this.dataGridViewAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridViewAll, "dataGridViewAll");
+            this.dataGridViewAll.Name = "dataGridViewAll";
+            this.dataGridViewAll.RowTemplate.Height = 28;
             // 
             // pictureBox2
             // 
@@ -207,24 +219,18 @@
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
-            // dataGridViewAllAlarms
+            // dataGridViewAllOutput
             // 
-            this.dataGridViewAllAlarms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dataGridViewAllAlarms, "dataGridViewAllAlarms");
-            this.dataGridViewAllAlarms.Name = "dataGridViewAllAlarms";
-            this.dataGridViewAllAlarms.RowTemplate.Height = 28;
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.dataGridViewAllOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridViewAllOutput, "dataGridViewAllOutput");
+            this.dataGridViewAllOutput.Name = "dataGridViewAllOutput";
+            this.dataGridViewAllOutput.RowTemplate.Height = 28;
             // 
             // tbDataName
             // 
             resources.ApplyResources(this.tbDataName, "tbDataName");
             this.tbDataName.Name = "tbDataName";
+            this.tbDataName.Click += new System.EventHandler(this.tbInput_Click);
             // 
             // label7
             // 
@@ -265,10 +271,128 @@
             this.lblValue.BackColor = System.Drawing.Color.White;
             this.lblValue.Name = "lblValue";
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // tbUshortName
+            // 
+            resources.ApplyResources(this.tbUshortName, "tbUshortName");
+            this.tbUshortName.Name = "tbUshortName";
+            this.tbUshortName.Click += new System.EventHandler(this.tbInput_Click);
+            // 
+            // tbUshortValue
+            // 
+            resources.ApplyResources(this.tbUshortValue, "tbUshortValue");
+            this.tbUshortValue.Name = "tbUshortValue";
+            this.tbUshortValue.Click += new System.EventHandler(this.tbInput_Click);
+            // 
+            // tbUintValue
+            // 
+            resources.ApplyResources(this.tbUintValue, "tbUintValue");
+            this.tbUintValue.Name = "tbUintValue";
+            this.tbUintValue.Click += new System.EventHandler(this.tbInput_Click);
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // tbUintName
+            // 
+            resources.ApplyResources(this.tbUintName, "tbUintName");
+            this.tbUintName.Name = "tbUintName";
+            this.tbUintName.Click += new System.EventHandler(this.tbInput_Click);
+            // 
+            // rtbOutput
+            // 
+            resources.ApplyResources(this.rtbOutput, "rtbOutput");
+            this.rtbOutput.Name = "rtbOutput";
+            // 
+            // sqLiteCommandBuilder1
+            // 
+            this.sqLiteCommandBuilder1.DataAdapter = null;
+            this.sqLiteCommandBuilder1.QuoteSuffix = "]";
+            // 
+            // buttonCylPlunger1
+            // 
+            resources.ApplyResources(this.buttonCylPlunger1, "buttonCylPlunger1");
+            this.buttonCylPlunger1.Name = "buttonCylPlunger1";
+            this.buttonCylPlunger1.UseVisualStyleBackColor = true;
+            this.buttonCylPlunger1.CheckedChanged += new System.EventHandler(this.CylPlunger1_CheckedChanged);
+            // 
+            // timerUpdateRlist
+            // 
+            this.timerUpdateRlist.Tick += new System.EventHandler(this.timerUpdateRlist_Tick);
+            // 
+            // progressBarDashboard
+            // 
+            resources.ApplyResources(this.progressBarDashboard, "progressBarDashboard");
+            this.progressBarDashboard.Name = "progressBarDashboard";
+            // 
+            // btnTestAsync
+            // 
+            resources.ApplyResources(this.btnTestAsync, "btnTestAsync");
+            this.btnTestAsync.Name = "btnTestAsync";
+            this.btnTestAsync.UseVisualStyleBackColor = true;
+            this.btnTestAsync.Click += new System.EventHandler(this.btnTestAsync_Click);
+            // 
+            // btnCancelAsync
+            // 
+            resources.ApplyResources(this.btnCancelAsync, "btnCancelAsync");
+            this.btnCancelAsync.Name = "btnCancelAsync";
+            this.btnCancelAsync.UseVisualStyleBackColor = true;
+            this.btnCancelAsync.Click += new System.EventHandler(this.btnCancelAsync_Click);
+            // 
+            // lblCurrentUser
+            // 
+            resources.ApplyResources(this.lblCurrentUser, "lblCurrentUser");
+            this.lblCurrentUser.Name = "lblCurrentUser";
+            // 
+            // lblLoginName
+            // 
+            resources.ApplyResources(this.lblLoginName, "lblLoginName");
+            this.lblLoginName.BackColor = System.Drawing.Color.White;
+            this.lblLoginName.Name = "lblLoginName";
+            // 
+            // lblLoginGroup
+            // 
+            resources.ApplyResources(this.lblLoginGroup, "lblLoginGroup");
+            this.lblLoginGroup.BackColor = System.Drawing.Color.White;
+            this.lblLoginGroup.Name = "lblLoginGroup";
+            this.lblLoginGroup.Click += new System.EventHandler(this.Label15_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblLoginGroup);
+            this.Controls.Add(this.lblLoginName);
+            this.Controls.Add(this.lblCurrentUser);
+            this.Controls.Add(this.btnCancelAsync);
+            this.Controls.Add(this.btnTestAsync);
+            this.Controls.Add(this.progressBarDashboard);
+            this.Controls.Add(this.buttonCylPlunger1);
+            this.Controls.Add(this.rtbOutput);
+            this.Controls.Add(this.tbUintValue);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.tbUintName);
+            this.Controls.Add(this.tbUshortValue);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.tbUshortName);
             this.Controls.Add(this.lblValue);
             this.Controls.Add(this.lblWAddress);
             this.Controls.Add(this.cbDataValue);
@@ -276,20 +400,18 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbDataName);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridViewAllAlarms);
+            this.Controls.Add(this.dataGridViewAllOutput);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.dataGridViewAllTypeUint);
-            this.Controls.Add(this.btnInitialModels);
+            this.Controls.Add(this.dataGridViewAll);
             this.Controls.Add(this.TestPLC);
             this.Controls.Add(this.btnNewLOT);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblService);
+            this.Controls.Add(this.lblStats);
+            this.Controls.Add(this.lblUsers);
+            this.Controls.Add(this.lblLogOn);
+            this.Controls.Add(this.lblLogOff);
+            this.Controls.Add(this.lblSetting);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnLogoff);
             this.Controls.Add(this.btnLogon);
@@ -300,9 +422,9 @@
             this.Controls.Add(this.btnCN);
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTypeUint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllAlarms)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllOutput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,23 +440,20 @@
         internal System.Windows.Forms.Button btnService;
         internal System.Windows.Forms.Button btnEN;
         internal System.Windows.Forms.Button btnCN;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblSetting;
+        private System.Windows.Forms.Label lblLogOff;
+        private System.Windows.Forms.Label lblLogOn;
+        private System.Windows.Forms.Label lblUsers;
+        private System.Windows.Forms.Label lblStats;
+        private System.Windows.Forms.Label lblService;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNewLOT;
         private System.IO.Ports.SerialPort PLCPort;
         private System.IO.Ports.SerialPort serialPort2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button TestPLC;
-        private System.Windows.Forms.Button btnInitialModels;
-        private System.Windows.Forms.DataGridView dataGridViewAllTypeUint;
+        private System.Windows.Forms.DataGridView dataGridViewAll;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.DataGridView dataGridViewAllAlarms;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridViewAllOutput;
         private System.Windows.Forms.TextBox tbDataName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -342,6 +461,24 @@
         private System.Windows.Forms.ComboBox cbDataValue;
         private System.Windows.Forms.Label lblWAddress;
         private System.Windows.Forms.Label lblValue;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbUshortName;
+        private System.Windows.Forms.TextBox tbUshortValue;
+        private System.Windows.Forms.TextBox tbUintValue;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbUintName;
+        private System.Windows.Forms.RichTextBox rtbOutput;
+        private System.Data.SQLite.SQLiteCommandBuilder sqLiteCommandBuilder1;
+        private System.Windows.Forms.CheckBox buttonCylPlunger1;
+        private System.Windows.Forms.Timer timerUpdateRlist;
+        private System.Windows.Forms.ProgressBar progressBarDashboard;
+        private System.Windows.Forms.Button btnTestAsync;
+        private System.Windows.Forms.Button btnCancelAsync;
+        private System.Windows.Forms.Label lblCurrentUser;
+        private System.Windows.Forms.Label lblLoginName;
+        private System.Windows.Forms.Label lblLoginGroup;
     }
 }
 

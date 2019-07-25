@@ -17,7 +17,8 @@ namespace XF_OPI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            GlobalConfig.InitializeDataConnection();
             //Initialize database connection
             switch (UserSettings.Default.DatabaseType)
             {
@@ -58,6 +59,8 @@ namespace XF_OPI
 
             //TODO - need to add GPIB/RS232 initialization and move initialization call to START button 
             
+
+
             Application.Run(new MainForm());
         }
     }

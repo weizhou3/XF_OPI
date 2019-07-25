@@ -1,0 +1,2 @@
+id,Name,BaudRate,DataBits,Parity,PortName,StopBits
+1,TestCA,115200,7,Even,COM4,Two

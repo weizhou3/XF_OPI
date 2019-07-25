@@ -54,7 +54,32 @@ namespace XFOPI_Library.DataConnection
             throw new NotImplementedException();
         }
 
+        public List<PlcDataNameAddressModel> GetAllDataAddresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcDataNameModel> GetAllDataNames()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ButtonAccessLevelModel> GetButtonsAccessLevel_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcDataAddressRecordModel> GetDataAddressRecord_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<GroupModel> GetGroups_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcPortSettingModel> GetPlcPortSetting_All()
         {
             throw new NotImplementedException();
         }
@@ -92,6 +117,11 @@ namespace XFOPI_Library.DataConnection
         public List<UserModel> GetUsers_All()
         {
             //TODO - GetUsers_All for text connector
+            throw new NotImplementedException();
+        }
+
+        public List<WarningCodeModel> GetWarningCodes_All()
+        {
             throw new NotImplementedException();
         }
 

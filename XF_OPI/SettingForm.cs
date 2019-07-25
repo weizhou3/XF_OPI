@@ -21,7 +21,8 @@ namespace XF_OPI
         {
 
             //this.VisibleChanged += SettingForm_VisibleChanged;
-            this.Hide();
+            Owner.Show();
+            Close();
 
 
         }

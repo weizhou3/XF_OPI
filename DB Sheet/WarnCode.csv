@@ -1,0 +1,89 @@
+id,WarnCodeName,WarnDescription
+1,LoaderHomeError,Loader Home Can not complete. Wrong position. Check and Reset Motor.
+2,NoEndingLoaderMotor,"Loader Motor started but without end. Checking setting, etc."
+3,LoaderMotorSetError,Check Loader parameter no set or setting Error
+4,LoaderBowBufExitJam,Check Magazine assembly and sensor
+5,LoaderStocTrackJamLeft,Check transport and its tube sensor
+6,LoaderStockTrackJamRight,Loader left empty tube - check and sensor
+7,TrackInputJamLeft,Loader right empty tube - check and sensor
+8,TrackInputJamRight,Check Tube sensor and tube left
+9,LoaderNeedReSet,Check Tube sensor and tube Right
+10,JamBeforeSingulatorLeft,Left input track detect empty component or input track Jam detect track Jam clearer
+11,JamBeforeSingulatorRight,Right input track detect empty component or input track Jam detect track Jam clearer
+12,SingulatorJamL,Left rotate tube not reach the sensor - check and air pressure and sensor
+13,SingulatorJamR,Right rotate tube not reach the sensor - check and air pressure and sensor
+14,JamSingulatorCS1,"Left Input track empty did not detected the passing component should be - check the assembly, alignment and sensor"
+15,JamSingulatorCS2,"Right Input track empty did not detected the passing component should be - check the assembly, alignment and sensor"
+16,JamSingulatorCS3,Loader request to clear the tube out of stack and Re-Start
+17,JamSingulatorCS4,"Should be units in chamber track but Singulator detect empty, then Jam before Singulator - left"
+18,JamCS3CS1,"Should be units in chamber track but Singulator detect empty, then Jam before Singulator - Right"
+19,JamCS4CS2,"Singulator fail to separate the unit, and the unit stuck there - left"
+20,LostCS1DropUnit,"Singulator fail to separate the unit, and the unit stuck there - right"
+21,LostCS2DropUnit,Singulator drop unit not reach CS1
+22,LostCS3DropUnit,Singulator drop unit not reach CS2
+23,LostCS4DropUnit,Singulator drop unit not reach CS3
+24,JamCS1EntrySensor,Singulator drop unit not reach CS4
+25,JamCS2EntrySensor,CS3 drop unit not reach CS1
+26,JamCS3EntrySensor,CS4 drop unit not reach CS2
+27,JamCS4EntrySensor,CS1 drop unit but exit sensor detect empty unit
+28,JamCS1ExitSensor,CS2 drop unit but exit sensor detect empty unit
+29,JamCS2ExitSensor,CS3 drop unit but not see the unit go out
+30,JamPTB1,CS4 drop unit but not see the unit go out
+31,JamPTB2,"CS1Entry Sensor blocked, check track and adjust amplifier"
+32,JamPTB3,"CS2Entry Sensor blocked, check track and adjust amplifier"
+33,JamPTB4,"CS3Entry Sensor blocked, check track and adjust amplifier"
+34,JamCS1VurveTrack,"CS4Entry Sensor blocked, check track and adjust amplifier"
+35,JamCS2VurveTrack,"CS1Exit Sensor blocked, check track and adjust amplifier"
+36,JamCS3VurveTrack,"CS2Exit Sensor blocked, check track and adjust amplifier"
+37,JamCS4VurveTrack,"Plunger1 not at the right position,  the sensor detect error, check plunger or sensor"
+38,JamBufDropUnitLeft,"Plunger2 not at the right position,  the sensor detect error, check plunger or sensor"
+39,JamBufDropUnitRight,"Plunger3 not at the right position,  the sensor detect error, check plunger or sensor"
+40,JamBufSortLeft,"Plunger4 not at the right position,  the sensor detect error, check plunger or sensor"
+41,JamBufSortRight,"CS1 drop unit, but turn shuttle detect empty"
+42,DDLeftSort,"CS2 drop unit, but turn shuttle detect empty"
+43,DDRightSort,"CS3 drop unit, but turn shuttle detect empty"
+44,JamInSortLeft,"CS4 drop unit, but turn shuttle detect empty"
+45,JamInSortRight,"Unit come to turn left, but should not be"
+46,JamSortDropUnitA,"Unit come to turn right, but should not be"
+47,JamSortDropUnitM1,Unit Jam happened between left turn and the buffer below
+48,JamSortDropUnitM2,Unit Jam happened between right turn and the buffer below
+49,JamSortDropUnitM3,"Unit come to the buffer below left turn, but should not be"
+50,JamSortDropUnitM4,"Unit come to the buffer below right turn, but should not be"
+51,JamSortDropUnitM5,Buffer below left turn drop unit but the unit Jam there
+52,NoExitForBINCS1,Buffer below right turn drop unit but the unit Jam there
+53,NoExitForBINCS2,The  unit from the buffer below left turn not arrive Sort
+54,NoExitForBINCS3,The  unit from the buffer below right turn not arrive Sort
+55,NoExitForBINCS4,DD happened in left Sort shuttle
+56,SOTStuckCS1,DD happened in right Sort shuttle
+57,SOTStuckCS2,Detect the unit in left sort shuttle but should not be
+58,SOTStuckCS3,Detect the unit in right sort shuttle but should not be
+59,SOTStuckCS4,"Left sort shuttle drop unit, but the edge sensor not detect the passing unit"
+60,BINNotGoneCS1,"Right sort shuttle drop unit, but the edge sensor not detect the passing unit"
+61,BINNotGoneCS2,"Jam above the left turn shuttle, when unit get in"
+62,BINNotGoneCS3,"Jam above the right turn shuttle, when unit get in"
+63,BINNotGoneCS4,"Exit not set for BIN which CS1 got, check setting"
+64,NoBINForCS1,"Exit not set for BIN which CS2 got, check setting"
+65,NoBINForCS2,"Exit not set for BIN which CS3 got, check setting"
+66,NoBINForCS3,"Exit not set for BIN which CS4 got, check setting"
+67,NoBINForCS4,"CS1 SOT could not deliver, as the condition not allow to be "
+68,MultiBINCS1,"CS2 SOT could not deliver, as the condition not allow to be"
+69,MultiBINCS2,"CS3 SOT could not deliver, as the condition not allow to be"
+70,MultiBINCS3,"CS4 SOT could not deliver, as the condition not allow to be"
+71,MultiBINCS4,"BIN signal remains on CS1, it may create error for test"
+72,NoEOTForCS1,"BIN signal remains on CS2, it may create error for test"
+73,NoEOTForCS2,"BIN signal remains on CS3, it may create error for test"
+74,NoEOTForCS3,"BIN signal remains on CS4, it may create error for test"
+75,NoEOTForCS4,CS1 test do not have BIN comes in
+76,TestFailsCS1,CS2 test do not have BIN comes in
+77,TestFailsCS2,CS3 test do not have BIN comes in
+78,TestFailsCS3,CS4 test do not have BIN comes in
+79,TestFailsCS4,CS1 test get more than 1 BIN come in
+80,GPIBNotReady,CS2 test get more than 1 BIN come in
+81,GPIBNoEnd,CS3 test get more than 1 BIN come in
+82,WaitA,CS4 test get more than 1 BIN come in
+83,WaitM1,CS1 not get End of Test signal
+84,WaitM2,CS2 not get End of Test signal
+85,WaitM3,CS3 not get End of Test signal
+86,WaitM4,CS4 not get End of Test signal
+87,WaitM5,Test on CS1 remains fail result
+88,PlungerLowSpeed,Test on CS2 remains fail result

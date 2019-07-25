@@ -72,6 +72,7 @@
             this.tBoxPassword.Name = "tBoxPassword";
             this.tBoxPassword.Size = new System.Drawing.Size(311, 32);
             this.tBoxPassword.TabIndex = 3;
+            this.tBoxPassword.Click += new System.EventHandler(this.TBoxPassword_Click);
             // 
             // btnLogin
             // 
@@ -82,9 +83,11 @@
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(389, 221);
             this.btnCancel.Name = "btnCancel";
@@ -92,6 +95,7 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // LoginForm
             // 

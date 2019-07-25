@@ -4128,8 +4128,8 @@
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 22</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>  设置</value>
+  <data name="Setting" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -4137,26 +4137,26 @@
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 22</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>  登出</value>
+  <data name="LogOff" xml:space="preserve">
+    <value>登出</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 22</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value> 登陆</value>
+  <data name="LogOn" xml:space="preserve">
+    <value>登陆</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 22</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value> 用户</value>
+  <data name="Users" xml:space="preserve">
+    <value>用户</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 22</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>   统计</value>
+  <data name="Statistics" xml:space="preserve">
+    <value>统计</value>
   </data>
   <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -4164,10 +4164,43 @@
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 22</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>  服务</value>
+  <data name="Service" xml:space="preserve">
+    <value>服务</value>
   </data>
   <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>创建新用户</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>当前用户</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>所有用户</value>
+  </data>
+  <data name="CautiousDeletingUser" xml:space="preserve">
+    <value>Cautious! Selected User will be deleted permanently!!</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>创建用户</value>
+  </data>
+  <data name="DeleteSelectedUser" xml:space="preserve">
+    <value>删除选定用户</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>用户组</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>用户ID</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>电话</value>
   </data>
 </root>

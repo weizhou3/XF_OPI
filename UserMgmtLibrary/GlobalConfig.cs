@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using XFOPI_Library.DataConnection;
 using XFOPI_Library.TesterIFConnection;
 using XFOPI_Library.Models;
+using XFOPI_Library.Models.SG2000;
+using XFOPI_Library.PLCConnection;
 
 namespace XFOPI_Library
 {
@@ -15,6 +18,13 @@ namespace XFOPI_Library
     {
         public static IDataConnection DBConnection { get; private set; }
         public static ITesterIFConnection IFConnection { get; private set; }
+        public static IPlcDataConnection DataConnection { get; private set; }
+
+        public static void InitializeDataConnection()
+        {
+            OmronFINsPlcConnector PlcConn = new OmronFINsPlcConnector();
+            DataConnection = PlcConn;
+        }
 
         public static void InitializeDBConnections(DatabaseType db)
         {
@@ -121,12 +131,128 @@ namespace XFOPI_Library
         }
 
         /// <summary>
-        /// Load the DataName and PlcAddress relationship into the mapping list, extract Word/Bit address info
+        /// Populate the full PCL Word list of a certain memory area
+        /// </summary>
+        /// <param name="plcWordList">The PLC Word list to be filled</param>
+        /// <param name="MemArea">Word memory area</param>
+        /// <param name="startingId">Starting Word address</param>
+        /// <returns></returns>
+        public static List<PlcWordModel> PopulatePlcWordList_singleType(List<PlcWordModel> plcWordList, PlcMemArea memArea ,int startingId)
+        {
+            int listSize;
+            string MemArea = null;
+            switch (memArea)
+            {
+                case PlcMemArea.CIO:
+                    MemArea = "C";
+                    listSize = 0;
+                    break;
+                case PlcMemArea.WR:
+                    MemArea = "W";
+                    listSize = OmronFINsClass.Size_WR;
+                    break;
+                case PlcMemArea.HR:
+                    MemArea = "H";
+                    listSize = OmronFINsClass.Size_HR;
+                    break;
+                case PlcMemArea.AR:
+                    MemArea = "A";
+                    listSize = 0;
+                    break;
+                case PlcMemArea.DM:
+                    MemArea = "D";
+                    listSize = OmronFINsClass.Size_DM;
+                    break;
+                default:
+                    MemArea = "";
+                    listSize = 0;
+                    break;
+            }
+            
+            
+            List<PlcWordModel> retPlcWordList = CreateList<PlcWordModel>(listSize);
+
+            foreach (var item in retPlcWordList)
+            {
+                item.SetMemoryArea(MemArea);
+                item.SetWordAddress(startingId);
+                startingId++;
+            }
+            plcWordList.AddRange(retPlcWordList);
+            return plcWordList;
+        }
+
+        /// <summary>
+        /// Create the complete BitModel list, with Word address/str and Bit address/str 
+        /// </summary>
+        /// <param name="plcBitList"></param>
+        /// <param name="MemArea"></param>
+        /// <param name="startingWordId"></param>
+        /// <param name="startingBitId"></param>
+        /// <returns></returns>
+        public static List<PlcBitModel> PopulatePlcBitList_singleType(List<PlcBitModel> plcBitList, PlcMemArea memArea, int startingWordId, int startingBitId)
+        {
+            int listSize;
+            string MemArea = null;
+            switch (memArea)
+            {
+                case PlcMemArea.CIO:
+                    MemArea = "C";
+                    listSize = 0;
+                    break;
+                case PlcMemArea.WR:
+                    MemArea = "W";
+                    listSize = OmronFINsClass.Size_WR * OmronFINsClass.Width_Word;
+                    break;
+                case PlcMemArea.HR:
+                    MemArea = "H";
+                    listSize = OmronFINsClass.Size_HR * OmronFINsClass.Width_Word;
+                    break;
+                case PlcMemArea.AR:
+                    MemArea = "A";
+                    listSize = 0;
+                    break;
+                case PlcMemArea.DM:
+                    MemArea = "D";
+                    listSize = 0;
+                    break;
+                default:
+                    MemArea = "";
+                    listSize = 0;
+                    break;
+            }
+           
+            List<PlcBitModel> retPlcBitList = CreateList<PlcBitModel>(listSize);
+
+            foreach (var item in retPlcBitList)
+            {
+                if (startingBitId == OmronFINsClass.Width_Word)
+                {
+                    startingBitId = 0;
+                    startingWordId++;
+                }
+                item.SetMemArea(MemArea);
+                item.SetWordAddress(startingWordId);
+                item.SetBitAddress(startingBitId);
+                item.SetAddressStr();
+
+                startingBitId++;
+            }
+            plcBitList.AddRange(retPlcBitList);
+            return plcBitList;
+        }
+
+        
+
+        
+
+        /// <summary>
+        /// Polulate the mapping list with DataName and PlcAddress relationship, extract Word/Bit address info and store in PlcWordAddress model
         /// </summary>
         /// <param name="plcDataAddressRecords">DataName and PlcAddress records list, raw from DB</param>
         /// <param name="plcDataAddressMappings">Empty mapping list</param>
         /// <returns>Filled mapping list, with Word/Bit address info</returns>
-        public static List<PlcDataAddressMappingModel> LoadPlcDataAddressMappings(List<PlcDataAddressRecordModel> plcDataAddressRecords,
+        public static List<PlcDataAddressMappingModel> PopulatePlcDataAddressMappings(List<PlcDataAddressRecordModel> plcDataAddressRecords,
             List<PlcDataAddressMappingModel> plcDataAddressMappings)
         {
             foreach (var Record in plcDataAddressRecords)
@@ -139,14 +265,30 @@ namespace XFOPI_Library
                 int.TryParse(Record.PlcAddress.Split('.')[0].Replace(MemArea, ""), out WordAddress);
 
                 //get the bit address as int
-                int BitAddress;
-                int.TryParse(Record.PlcAddress.Split('.')[1], out BitAddress);
+                int? BitAddress = null;
+                
+                if (Record.PlcAddress.Contains("."))
+                {
+                    int bitAddress;
+                    //int.TryParse(Record.PlcAddress.Split('.')[1], out bitAddress);
+                    if (int.TryParse(Record.PlcAddress.Split('.')[1], out bitAddress))
+                    {
+                        BitAddress = (int?)bitAddress;
+                    }
+                    
+                    //BitAddress = int.TryParse(Record.PlcAddress.Split('.')[1], out bitAddress) ? BitAddress:bitAddress;
+                }
+                else
+                {
+                    BitAddress = null;
+                }
+                
 
                 PlcDataAddressMappingModel temp = new PlcDataAddressMappingModel();
                 temp.PlcDataAddressRecord = Record;
-                temp.PlcAddress.MemoryArea = MemArea;
-                temp.PlcAddress.WordAddress = WordAddress;
-                temp.PlcAddress.BitAddress = BitAddress;
+                temp.PlcWordAddress.MemoryArea = MemArea;
+                temp.PlcWordAddress.WordAddress = WordAddress;
+                temp.PlcWordAddress.BitAddress = BitAddress;
 
                 plcDataAddressMappings.Add(temp);
 
@@ -154,6 +296,27 @@ namespace XFOPI_Library
             return plcDataAddressMappings;
         }
 
+        public static List<PlcDataAddressMappingModel> AppendFullUintAddressMappings
+            (List<TypeUintModel> AllTypeUint, List<PlcDataAddressMappingModel> plcDataAddressMappings)
+        {
+            List<PlcDataAddressMappingModel> tempList = new List<PlcDataAddressMappingModel>();
+            //PlcDataAddressMappingModel temp = new PlcDataAddressMappingModel();
+            int i = 1;
+            int maxId = plcDataAddressMappings.Max(x => x.PlcDataAddressRecord.id);
+            foreach (var item in AllTypeUint)
+            {
+                PlcDataAddressMappingModel  temp = 
+                    plcDataAddressMappings.Find(x => x.PlcDataAddressRecord.DataName == item.Name).DeepCopy();
+                
+                temp.PlcDataAddressRecord.id = maxId + i;
+                temp.PlcWordAddress.WordAddress++;
+                temp.PlcDataAddressRecord.PlcAddress = temp.PlcWordAddress.MemoryArea + temp.PlcWordAddress.WordAddress.ToString();
+                tempList.Add(temp);
+                i++;
+            }
+            plcDataAddressMappings.AddRange(tempList);
+            return plcDataAddressMappings;
+        }
 
         public static string ReplaceCommonEscapeSequences(string s)
         {
@@ -163,6 +326,101 @@ namespace XFOPI_Library
         public static string InsertCommonEscapeSequences(string s)
         {
             return s.Replace("\n", "\\n").Replace("\r", "\\r");
+        }
+
+        //public static async Task<int> testWorkerThreadAsync(IProgress<ProgressReportModel> progress, CancellationToken ctsToken, int startingNumber)
+        //{
+
+        //    int result = startingNumber;
+        //    int totalNumer = 100;
+        //    ProgressReportModel report = new ProgressReportModel();
+
+        //    await Task.Run(() => 
+        //    {
+        //        for (int i = 0; i < totalNumer; i++)
+        //        {
+        //            result = ModifyResult(result);
+        //            ctsToken.ThrowIfCancellationRequested();
+
+        //            report.CountedNumber = result;
+        //            report.PercetageComplete = result * 100 / totalNumer;
+        //            progress.Report(report);
+
+        //            Thread.Sleep(500);
+
+        //        }
+        //    });
+
+        //    return result;
+        //}
+
+        public static bool VerifyButtonAccess(string btnName, string formName, string currentLogin)
+        {
+            List<ButtonAccessLevelModel> btnLevels = DBConnection.GetButtonsAccessLevel_All();
+            ButtonAccessLevelModel btn = btnLevels.FirstOrDefault(x => x.ButtonName == btnName && x.Form == formName);
+            if (btn!=null)
+            {
+                switch (currentLogin)
+                {
+                    case "Admin":
+                        return true;
+                    case "Maint":
+                        if (btn.Maint=="1")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case "Operator":
+                        if (btn.Operator=="1")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        public static int testWorkerThread()
+        {
+            int startingNumber = 1;
+            int result = startingNumber;
+            int totalNumer = 100;
+            ProgressReportModel report = new ProgressReportModel();
+
+
+                for (int i = 0; i < totalNumer; i++)
+                {
+                    result = ModifyResult(result);
+                    //ctsToken.ThrowIfCancellationRequested();
+
+                    report.CountedNumber = result;
+                    report.PercetageComplete = result * 100 / totalNumer;
+                    //progress.Report(report);
+
+                    Thread.Sleep(500);
+
+                }
+
+            return result;
+        }
+
+        private static int ModifyResult(int result)
+        {
+            return result + 1;
         }
 
     }

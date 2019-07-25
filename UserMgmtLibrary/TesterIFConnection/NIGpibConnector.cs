@@ -19,7 +19,22 @@ namespace XFOPI_Library.TesterIFConnection
 
         public void RunTestSequence(TesterIFType iFType, TesterIFProtocol iFProtocol)
         {
-            throw new NotImplementedException();
+            switch (iFProtocol)
+            {
+                case TesterIFProtocol.MTGPIB:
+                    //runMt sequence
+                    break;
+                case TesterIFProtocol.RSGPIB:
+                    //run RS sequence
+                    break;
+                case TesterIFProtocol.RSRS232:
+                    break;
+                case TesterIFProtocol.TTL:
+                    break;
+                default:
+                    break;
+            }
+            
         }
 
         public bool SendToTester(string String)

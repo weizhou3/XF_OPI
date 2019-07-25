@@ -43,7 +43,7 @@
             this.txt_server.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_server.Location = new System.Drawing.Point(240, 69);
             this.txt_server.Name = "txt_server";
-            this.txt_server.Size = new System.Drawing.Size(431, 38);
+            this.txt_server.Size = new System.Drawing.Size(431, 30);
             this.txt_server.TabIndex = 0;
             this.txt_server.Click += new System.EventHandler(this.txt_KP_Click);
             // 
@@ -52,7 +52,7 @@
             this.txt_pw.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_pw.Location = new System.Drawing.Point(240, 188);
             this.txt_pw.Name = "txt_pw";
-            this.txt_pw.Size = new System.Drawing.Size(431, 38);
+            this.txt_pw.Size = new System.Drawing.Size(431, 30);
             this.txt_pw.TabIndex = 1;
             this.txt_pw.Click += new System.EventHandler(this.txt_KP_Click);
             // 
@@ -61,7 +61,7 @@
             this.txt_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_username.Location = new System.Drawing.Point(240, 127);
             this.txt_username.Name = "txt_username";
-            this.txt_username.Size = new System.Drawing.Size(431, 38);
+            this.txt_username.Size = new System.Drawing.Size(431, 30);
             this.txt_username.TabIndex = 2;
             this.txt_username.Click += new System.EventHandler(this.txt_KP_Click);
             // 
@@ -71,7 +71,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(101, 69);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 31);
+            this.label4.Size = new System.Drawing.Size(76, 25);
             this.label4.TabIndex = 3;
             this.label4.Text = "Server:";
             // 
@@ -81,7 +81,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(61, 188);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 31);
+            this.label5.Size = new System.Drawing.Size(104, 25);
             this.label5.TabIndex = 4;
             this.label5.Text = "Password:";
             // 
@@ -91,7 +91,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(44, 127);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(159, 31);
+            this.label6.Size = new System.Drawing.Size(116, 25);
             this.label6.TabIndex = 5;
             this.label6.Text = "User Name:";
             // 
@@ -129,6 +129,7 @@
             this.Controls.Add(this.txt_pw);
             this.Controls.Add(this.txt_server);
             this.Name = "FTPConfigForm";
+            this.Text = "FTP setting";
             this.Load += new System.EventHandler(this.FTPConfigForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

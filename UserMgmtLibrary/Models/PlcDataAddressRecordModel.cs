@@ -14,5 +14,16 @@ namespace XFOPI_Library.Models
         public int id { get; set; }
         public string DataName { get; set; }
         public string PlcAddress { get; set; }
+
+        public PlcDataAddressRecordModel()
+        {
+
+        }
+        public PlcDataAddressRecordModel(int id, string DataName, string PlcAddress)
+        {
+            this.id = id;
+            this.DataName = DataName;
+            this.PlcAddress = PlcAddress;
+        }
     }
 }

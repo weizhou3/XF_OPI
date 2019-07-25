@@ -48,9 +48,9 @@ namespace XF_OPI
         private void RdAllW()
         {
             //string StrRx1 = OmronFINsProcessor.GenericRdPLC("WR", "000000", "012B00", PlcSerialPort);
-            string StrRx1 = OmronFINsProcessor.GenericRdPLC("WR", "0000", "0049", PlcSerialPort);
+            string StrRx1 = OmronFINsProcessor.GenericRdPLC(PlcMemArea.WR, "0000", "0049", PlcSerialPort);
             //string StrRx2 = OmronFINsProcessor.GenericRdPLC("WR", "012C00", "01FF00", PlcSerialPort);
-            string StrRx2 = OmronFINsProcessor.GenericRdPLC("WR", "0050", "0099", PlcSerialPort);
+            string StrRx2 = OmronFINsProcessor.GenericRdPLC(PlcMemArea.WR, "0050", "0099", PlcSerialPort);
             //TODO: verify Rx string is valid before processing
             string StrRx = StrRx1 + StrRx2;
             PlcData.AllW = OmronFINsProcessor.ConvWordStrToWordArray(StrRx);
@@ -58,8 +58,8 @@ namespace XF_OPI
 
         private void WrtAllW(string StringToWrite)
         {
-            string WordStrToWrite1 = null;
-            string WordStrToWrite2 = null;
+            //string WordStrToWrite1 = null;
+            //string WordStrToWrite2 = null;
             //for (int i = 0; i < 300; i++)
             //{
             //    WordStrToWrite1 = WordStrToWrite1 + "0011";
@@ -72,7 +72,7 @@ namespace XF_OPI
             //WordStrToWrite2 = (int.Parse(StringToWrite)+1).ToString().PadLeft(4,'0');
 
             //OmronFINsProcessor.GenericWrtPLC("WR", "000000", "012B00", WordStrToWrite1, PlcSerialPort);
-            OmronFINsProcessor.GenericWrtPLC("WR", "0000", "0099", StringToWrite, PlcSerialPort);
+            //OmronFINsProcessor.GenericWrtPLC(PlcMemArea.WR, "0000", "0099", StringToWrite, PlcSerialPort);
             //OmronFINsProcessor.GenericWrtPLC("WR", "012C00", "01FF00", WordStrToWrite2, PlcSerialPort);
             //OmronFINsProcessor.GenericWrtPLC("WR", "0050", "0099", WordStrToWrite2, PlcSerialPort);
         }

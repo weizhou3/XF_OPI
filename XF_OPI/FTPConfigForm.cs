@@ -28,6 +28,8 @@ namespace XF_OPI
             FTPPassword = txt_pw.Text;
             DialogResult = DialogResult.OK;
             this.Close();
+
+            
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

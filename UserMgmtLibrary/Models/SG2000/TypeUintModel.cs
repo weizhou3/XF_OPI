@@ -11,7 +11,10 @@ namespace XFOPI_Library.Models.SG2000
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public uint Value { get; set; }
+        public uint Value { get; private set; }
+        public string ValueStr { get; private set; }
+        public string ValueHexStr { get; private set; }
+        public string AppCode { get; set; }
         public string WrtOnStop { get; set; }
         public string WrtOnStart { get; set; }
         public string WrtOnRun { get; set; }
@@ -19,10 +22,59 @@ namespace XFOPI_Library.Models.SG2000
         //public bool WrtOnStart { get; set; }
         //public bool WrtOnRun { get; set; }
        
-
+        /// <summary>
+        /// Set UInt Value
+        /// </summary>
+        /// <param name="Value">Uint value</param>
         public void SetValue(uint Value)
         {
             this.Value = Value;
+            ValueStr = Value.ToString();
+            ValueHexStr = OmronFINsProcessor.HexConvert10(Value.ToString()).PadLeft(8,'0');
+        }
+
+        public void SetValue(string ValueStr)
+        {
+            this.ValueStr = ValueStr;
+            Value = uint.Parse(ValueStr);
+            ValueHexStr = OmronFINsProcessor.HexConvert10(ValueStr).PadLeft(8,'0');
+        }
+
+        /// <summary>
+        /// Set UInt Value
+        /// </summary>
+        /// <param name="HexStr"></param>
+        public void SetValueHex(string HexStr)
+        {
+            //HexStr = HexStr.PadLeft(8, '0');
+            ////if (HexStr.Length==8)
+            ////{
+            //    string HexStr_LSB = HexStr.Substring(0, 4);
+            //    string HexStr_MSB = HexStr.Substring(4, 4);
+            //    Value = uint.Parse(HexStr_MSB + HexStr_LSB, System.Globalization.NumberStyles.HexNumber);
+            Value = uint.Parse(HexStr, System.Globalization.NumberStyles.HexNumber);
+            ValueStr = Value.ToString();
+                ValueHexStr = HexStr.PadLeft(8,'0');
+                //string DecimalStr = OmronFINsProcessor.DecimalConvert16(hexStr_MSB + hexStr_LSB);
+
+                //Value = Int32.Parse(OmronFINsProcessor.DecimalConvert16(hexStr_MSB+hexStr_LSB));
+            //}
+            
+            
+        }
+
+        /// <summary>
+        /// Set UInt Value 
+        /// </summary>
+        /// <param name="HexStr_LSB">low address Word</param>
+        /// <param name="HexStr_MSB">high address Word</param>
+        public void SetValueHex(string HexStr_LSB, string HexStr_MSB)
+        {
+            HexStr_LSB = HexStr_LSB.PadLeft(4, '0');
+            HexStr_MSB = HexStr_MSB.PadLeft(4, '0');
+
+            Value = uint.Parse(HexStr_MSB + HexStr_LSB, System.Globalization.NumberStyles.HexNumber);
+            
         }
        
 
@@ -34,8 +86,7 @@ namespace XFOPI_Library.Models.SG2000
         {
             //assume PLC addressing 0..511, where LSB before MSB. i.e. W0+W1=LSB+MSB
             string temp = OmronFINsProcessor.HexConvert10(Value.ToString()).PadLeft(8, '0');
-            return temp.Substring(4, 4) + temp.Substring(0, 4);//sawp LSB and MSB
-            //TODO: need to verify in PLC the 2words addressing is correct
+            return temp.Substring(4, 4) + temp.Substring(0, 4);//return LSB + MSB (low address + high address)
 
             //assume PLC addressing 0..511, where MSB before LSB. i.e. W1+W0=LSB+MSB
             //return OmronFINsProcessor.HexConvert10(Value.ToString()).PadLeft(8, '0');

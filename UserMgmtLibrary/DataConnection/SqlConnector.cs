@@ -51,7 +51,32 @@ namespace XFOPI_Library.DataConnection
             throw new NotImplementedException();
         }
 
+        public List<PlcDataNameAddressModel> GetAllDataAddresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcDataNameModel> GetAllDataNames()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ButtonAccessLevelModel> GetButtonsAccessLevel_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcDataAddressRecordModel> GetDataAddressRecord_All()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<GroupModel> GetGroups_All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PlcPortSettingModel> GetPlcPortSetting_All()
         {
             throw new NotImplementedException();
         }
@@ -96,6 +121,11 @@ namespace XFOPI_Library.DataConnection
             }
 
             return output;
+        }
+
+        public List<WarningCodeModel> GetWarningCodes_All()
+        {
+            throw new NotImplementedException();
         }
 
         public List<T> LoadData<T>(string sqlStatement, Dictionary<string, object> parameters, string connectionName)

@@ -7,18 +7,30 @@ using System.Threading.Tasks;
 namespace XFOPI_Library.Models
 {
     /// <summary>
-    /// to hold a single line record of DataName <> PlcAddress String <> PlcAddress in RAM
+    /// The complete address mapping model, = PlcDataAddressRecordModel + PlcWordAddressModel
+    /// to hold a single line record of DataName <> PlcAddress String <> PlcAddress in RAM    
     /// </summary>
     public class PlcDataAddressMappingModel
     {
         public PlcDataAddressRecordModel PlcDataAddressRecord { get; set; }
-        public PlcAddressModel PlcAddress { get; set; }
-
-
-
+        public PlcWordAddressModel PlcWordAddress { get; set; }
+        
         public PlcDataAddressMappingModel()
         {
-            PlcAddress = new PlcAddressModel();
+            PlcWordAddress = new PlcWordAddressModel();
+        }
+
+        public PlcDataAddressMappingModel ShallowCopy()
+        {
+            return (PlcDataAddressMappingModel) this.MemberwiseClone();
+        }
+
+        public PlcDataAddressMappingModel DeepCopy()
+        {
+            PlcDataAddressMappingModel other = (PlcDataAddressMappingModel)this.MemberwiseClone();
+            other.PlcDataAddressRecord = new PlcDataAddressRecordModel(PlcDataAddressRecord.id, PlcDataAddressRecord.DataName, PlcDataAddressRecord.PlcAddress);
+            other.PlcWordAddress = new PlcWordAddressModel(PlcWordAddress.MemoryArea, PlcWordAddress.WordAddress, PlcWordAddress.BitAddress);
+            return other;
         }
     }
 }

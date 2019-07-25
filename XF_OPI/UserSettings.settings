@@ -14,5 +14,23 @@
     <Setting Name="DatabaseType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Sqlite</Value>
     </Setting>
+    <Setting Name="PW_Admin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="PW_Maint" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1111</Value>
+    </Setting>
+    <Setting Name="PW_Op" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CurrentUserGroup" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Operator</Value>
+    </Setting>
+    <Setting Name="LogoffTimer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en-US</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

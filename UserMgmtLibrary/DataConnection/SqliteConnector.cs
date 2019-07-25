@@ -198,6 +198,12 @@ namespace XFOPI_Library.DataConnection
             return TypeAlarmCodelist;
         }
 
+        public List<PlcPortSettingModel> GetPlcPortSetting_All()
+        {
+            string sql = "select * from PlcPortSetting order by Name";
+            return LoadData<PlcPortSettingModel>(sql, new Dictionary<string, object>());
+        }
+
         public List<PlcDataAddressRecordModel> GetTypeBoolAddressRecord_All()
         {
             string sql = "select * from TypeBoolAddress order by id";
@@ -206,14 +212,44 @@ namespace XFOPI_Library.DataConnection
 
         public List<PlcDataAddressRecordModel> GetTypeUshortAddressRecord_All()
         {
-            string sql = "select * from TypeUshortAddress order by DataName";
+            string sql = "select * from TypeUshortAddress order by id";
             return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());
         }
 
         public List<PlcDataAddressRecordModel> GetTypeUintAddressRecord_All()
         {
-            string sql = "select * from TypeUintAddress order by DataName";
+            string sql = "select * from TypeUintAddress order by id";
             return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<PlcDataAddressRecordModel> GetDataAddressRecord_All()
+        {
+            string sql = "select * from DataAddress order by id";
+            return LoadData<PlcDataAddressRecordModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<WarningCodeModel> GetWarningCodes_All()
+        {
+            string sql = "select * from WarnCode order by WarnCodeName";
+            return LoadData<WarningCodeModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<PlcDataNameModel> GetAllDataNames()
+        {
+            string sql = "select * from DataNames order by Name";
+            return LoadData<PlcDataNameModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<PlcDataNameAddressModel> GetAllDataAddresses()
+        {   
+            string sql = "select * from DataNameAddresses order by Name";
+            return LoadData<PlcDataNameAddressModel>(sql, new Dictionary<string, object>());
+        }
+
+        public List<ButtonAccessLevelModel> GetButtonsAccessLevel_All()
+        {
+            string sql = "select * from UIbuttons order by id";
+            return LoadData<ButtonAccessLevelModel>(sql, new Dictionary<string, object>());
         }
     }
 }
