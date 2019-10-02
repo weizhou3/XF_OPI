@@ -476,7 +476,8 @@ namespace XFOPI_Library.PLCConnection
                 foreach (var addrStr in sList)
                 {
                     int wordAddress = addrStr.Key;
-                    int bitAddress = 0;
+                    //int bitAddress = 0;
+                    int bitAddress = 15;//WRstr format is MSB->LSB
                     string binStr = BinaryConvert16(addrStr.Value);
                     for (int i = 0; i < binStr.Length; i++)
                     {
@@ -486,11 +487,13 @@ namespace XFOPI_Library.PLCConnection
                         {
                             tempBit.SetValue(binStr.Substring(i, 1));
                         }
-                        bitAddress++;
-                        if (bitAddress==16)
+                        bitAddress--;
+                        //if (bitAddress==16)
+                        if (bitAddress == -1)
                         {
                             wordAddress++;
-                            bitAddress = 0;
+                            //bitAddress = 0;
+                            bitAddress = 15;
                         }
                     }
                 }
@@ -827,23 +830,36 @@ namespace XFOPI_Library.PLCConnection
             strHR = new SortedList<int, string>();
             strDM = new SortedList<int, string>();
 
+            Stopwatch stopwatch1 = new Stopwatch();
+            Stopwatch stopwatch2 = new Stopwatch();
+            Stopwatch stopwatch3 = new Stopwatch();
+            Stopwatch stopwatch4 = new Stopwatch();
+
+            stopwatch1.Start();
             foreach (var address in addrWR)
             {
+                stopwatch4.Start();
                 strWR.Add(address.Key,
                     GenericRdPLC(PlcMemArea.WR, address.Key.ToString(), address.Value.ToString(), PlcSerialPort));
+                stopwatch4.Stop();
             }
+            stopwatch1.Stop();
 
+            stopwatch2.Start();
             foreach (var address in addrHR)
             {
                 strHR.Add(address.Key,
                     GenericRdPLC(PlcMemArea.HR, address.Key.ToString(), address.Value.ToString(), PlcSerialPort));
             }
+            stopwatch2.Stop();
 
+            stopwatch3.Start();
             foreach (var address in addrDM)
             {
                 strDM.Add(address.Key, 
                     GenericRdPLC(PlcMemArea.DM, address.Key.ToString(), address.Value.ToString(), PlcSerialPort));
             }
+            stopwatch3.Stop();
             
             //foreach (var item in strWR)
             //{

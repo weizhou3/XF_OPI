@@ -89,7 +89,7 @@
     <Compile Include="Models\PlcDataAddressMappingModel.cs" />
     <Compile Include="Models\PlcDataAddressRecordModel.cs" />
     <Compile Include="Models\PlcWordModel.cs" />
-    <Compile Include="Models\ProgressReportModel.cs" />
+    <Compile Include="Models\PlcProgressReportModel.cs" />
     <Compile Include="Models\SG2000\AlarmCodeModel.cs" />
     <Compile Include="Models\SG2000\Cylinder.cs" />
     <Compile Include="Models\SG2000\DataAddressMap.cs" />

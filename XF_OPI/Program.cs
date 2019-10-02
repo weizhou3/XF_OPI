@@ -17,8 +17,10 @@ namespace XF_OPI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            //Initialize PLC connection
+            GlobalConfig.InitializePlcConnection();
 
-            GlobalConfig.InitializeDataConnection();
             //Initialize database connection
             switch (UserSettings.Default.DatabaseType)
             {

@@ -41,7 +41,7 @@ namespace XF_OPI
         //public static Dictionary<string, string> DataNameValue_Wlist = new Dictionary<string, string>();
         //public static Dictionary<string, string> DataNameValue_Rlist = new Dictionary<string, string>();
 
-        CancellationTokenSource cts;
+        CancellationTokenSource cts = new CancellationTokenSource();
         //Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
 
 
@@ -96,22 +96,119 @@ namespace XF_OPI
 
 
 
-        private async void btnTestAsync_Click(object sender, EventArgs e)
+        private void btnTestAsync_Click(object sender, EventArgs e)
         {
-            OmronFINsPlcConnector dataConnector = new OmronFINsPlcConnector(PLCPort);//publisher
+            //OmronFINsPlcConnector dataConnector = new OmronFINsPlcConnector(PLCPort);//initialize PLC data connector
+            GlobalConfig.DataConnection.SetPort(PLCPort);
+
+            Progress<PlcProgressReportModel> plcProgress = new Progress<PlcProgressReportModel>();
+            plcProgress.ProgressChanged += ReportPlcProgress;
+
+            cts.Dispose();
+            cts = new CancellationTokenSource();
+            DataWorker dataWorder = new DataWorker();
+            dataWorder.RunDataExchange(int.Parse(tBoxTimeout.Text)*1000, 400, cts.Token, plcProgress);//publisher
+
             //TestPrintResultService printService = new TestPrintResultService();//subscriber
 
-            dataConnector.PlcReadingCompleted += UpdateUIservice_read;
+            //dataConnector.PlcReadingCompleted += UpdateUIservice_read;
             //dataConnector.PlcReadingProgressChanged += UpdateUIservice;
 
             //await dataConnector.TestReadAsync(cts.Token);
 
-            rtbOutput.Text += "ALL DONE!";
+            //rtbOutput.Text += "ALL DONE!";
 
 
 
 
         }
+
+        private void ReportPlcProgress(object sender, PlcProgressReportModel e)
+        {
+            
+            rtbOutput.Text += e.Msg + Environment.NewLine;
+
+            if (e.PercetageComplete==50)
+            {
+                //publish R list to display
+                dataGridViewAll.DataSource = null;
+                dataGridViewAll.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+                dataGridViewAll.DataSource = PlcDataMapper.DataNameValue_Rlist.Select(u => new
+                {
+                    Name = u.Key,
+                    Value = u.Value.Value
+                }).ToList();
+
+                foreach (var cbox in this.Controls.OfType<CheckBox>())
+                {
+                    if (PlcDataMapper.DataNameValue_Rlist.ContainsKey(cbox.Name.Substring(3, (cbox.Name.Length - 3))))
+                    {
+                        if (PlcDataMapper.DataNameValue_Rlist[cbox.Name.Substring(3, (cbox.Name.Length - 3))].Value == "1")
+                        {
+                            cbox.BackColor = Color.Gold;
+                            cbox.Enabled = true;
+                        }
+                        else if (PlcDataMapper.DataNameValue_Rlist[cbox.Name.Substring(3, (cbox.Name.Length - 3))].Value == "0")
+                        {
+                            cbox.BackColor = Color.LightGray;
+                            cbox.Enabled = true;
+                        }
+                    }
+                }
+            }
+            else if (e.PercetageComplete==100)
+            {
+                //publish 
+                dataGridViewAllOutput.DataSource = null;
+                dataGridViewAllOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+                //dataGridViewAllOutput.DataSource = PlcDataMapper.DataNameValue_Wlist.Select
+                dataGridViewAllOutput.DataSource = e.Wlist.Select(u => new
+                {
+                    Name = u.Key,
+                    Value = u.Value
+
+                }).ToList();
+
+                rtbOutput.Clear();
+
+            }
+            //refresh button color if set PLC value succeeded
+            foreach (var button in this.Controls.OfType<Button>())
+            {
+                if (PlcDataMapper.DataNameValue_Rlist.ContainsKey(button.Name.Substring(3, (button.Name.Length - 3))))
+                {
+                    if (PlcDataMapper.DataNameValue_Rlist[button.Name.Substring(3, (button.Name.Length - 3))].Value == "1")
+                    {
+                        button.BackColor = Color.Gold;
+                    }else if (PlcDataMapper.DataNameValue_Rlist[button.Name.Substring(3, (button.Name.Length - 3))].Value == "0")
+                    {
+                        button.BackColor = Color.LightGray;
+                    }
+                }                
+            }
+
+
+
+
+
+        }
+
+        //private bool startPlcPort(out string expMsg)
+        //{
+        //    try
+        //    {
+        //        if (!PLCPort.IsOpen)
+        //            PLCPort.Open();
+                
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
         private void wireupLists(bool RdList, bool WrtList, Dictionary<string,string> wlist)
         {
@@ -188,7 +285,7 @@ namespace XF_OPI
         }
 
 
-        private void ReportProgress(object sender, ProgressReportModel e)
+        private void ReportProgress(object sender, PlcProgressReportModel e)
         {
             rtbOutput.Text += e.Msg + Environment.NewLine;
             progressBarDashboard.Value = e.PercetageComplete;
@@ -207,6 +304,8 @@ namespace XF_OPI
             lblStats.Text = rm.GetString("Statistics", CI);
             lblService.Text = rm.GetString("Service", CI);
             lblCurrentUser.Text = rm.GetString("CurrentUser", CI);
+            lblStart.Text = rm.GetString("Start", CI);
+            lblStop.Text = rm.GetString("Stop", CI);
         }
 
         private void ButtonCN_Click(object sender, EventArgs e)
@@ -587,31 +686,30 @@ namespace XF_OPI
             }
         }
 
-        private void CylPlunger1_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            PlcDataMapper.DataNameValue_Wlist[btn.Name] = "1";
-            rtbOutput.Text += $"Data name is {btn.Name} and Value is {PlcDataMapper.DataNameValue_Wlist[btn.Name]}";
-            //Console.WriteLine($"Data name is {DataNameValue[btn.Name]} and Value is {DataNameValue[btn.Name]}");
-            
- 
-        }
+        
 
         private void CylPlunger1_CheckedChanged(object sender, EventArgs e)
-        {
+        {            
             CheckBox cb = (CheckBox)sender;
+            cb.BackColor = Color.DimGray;
+            cb.Enabled = false;
+            
             //int l = cb.Name.Length;
-            string Name = cb.Name.Substring(6, (cb.Name.Length-6));
+            string Name = cb.Name.Substring(3, (cb.Name.Length-3));
             if (cb.Checked)
             {
-                cb.BackColor = Color.Gold;
+                //if (PlcDataMapper.DataNameValue_Rlist[Name].Value=="1")
+                //{
+                //    cb.BackColor = Color.Gold;
+                //}
+                
 
                 PlcDataMapper.DataNameValue_Wlist[Name] = "1";
                 rtbOutput.Text += $"Data name is {Name} and Value is {PlcDataMapper.DataNameValue_Wlist[Name]}";
             }
             else
             {
-                cb.BackColor = Color.LightGray;
+                //cb.BackColor = Color.LightGray;
                 PlcDataMapper.DataNameValue_Wlist[Name] = "0";
                 rtbOutput.Text += $"Data name is {Name} and Value is {PlcDataMapper.DataNameValue_Wlist[Name]}";
             }
@@ -695,6 +793,34 @@ namespace XF_OPI
                 Hide();
                 frm.VisibleChanged += SubForm_VisibleChanged;
             }
+        }
+
+        private void BtnStart_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ExportAddress_Click(object sender, EventArgs e)
+        {
+            PlcDataMapper.ExportDataAddresses();
+        }
+
+        private void BtnCylPlunger1_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            PlcDataMapper.DataNameValue_Wlist[btn.Name.Substring(3, (btn.Name.Length - 3))] = "1";
+            rtbOutput.Text += $"Data name is {btn.Name} and Value is {PlcDataMapper.DataNameValue_Wlist[btn.Name.Substring(3, (btn.Name.Length - 3))]}";
+            //Console.WriteLine($"Data name is {DataNameValue[btn.Name]} and Value is {DataNameValue[btn.Name]}");
+            dataGridViewAllOutput.DataSource = null;
+            dataGridViewAllOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            dataGridViewAllOutput.DataSource = PlcDataMapper.DataNameValue_Wlist.Select(u => new
+            {
+                Name = u.Key,
+                Value = u.Value
+
+
+            }).ToList();
         }
     }
 }

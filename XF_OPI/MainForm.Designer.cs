@@ -69,7 +69,7 @@
             this.tbUintName = new System.Windows.Forms.TextBox();
             this.rtbOutput = new System.Windows.Forms.RichTextBox();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
-            this.buttonCylPlunger1 = new System.Windows.Forms.CheckBox();
+            this.chbCylPlunger1 = new System.Windows.Forms.CheckBox();
             this.timerUpdateRlist = new System.Windows.Forms.Timer(this.components);
             this.progressBarDashboard = new System.Windows.Forms.ProgressBar();
             this.btnTestAsync = new System.Windows.Forms.Button();
@@ -77,6 +77,14 @@
             this.lblCurrentUser = new System.Windows.Forms.Label();
             this.lblLoginName = new System.Windows.Forms.Label();
             this.lblLoginGroup = new System.Windows.Forms.Label();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.lblStart = new System.Windows.Forms.Label();
+            this.lblStop = new System.Windows.Forms.Label();
+            this.ExportAddress = new System.Windows.Forms.Button();
+            this.tBoxTimeout = new System.Windows.Forms.TextBox();
+            this.lblTimeout = new System.Windows.Forms.Label();
+            this.btnCylPlunger1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllOutput)).BeginInit();
@@ -325,12 +333,12 @@
             this.sqLiteCommandBuilder1.DataAdapter = null;
             this.sqLiteCommandBuilder1.QuoteSuffix = "]";
             // 
-            // buttonCylPlunger1
+            // chbCylPlunger1
             // 
-            resources.ApplyResources(this.buttonCylPlunger1, "buttonCylPlunger1");
-            this.buttonCylPlunger1.Name = "buttonCylPlunger1";
-            this.buttonCylPlunger1.UseVisualStyleBackColor = true;
-            this.buttonCylPlunger1.CheckedChanged += new System.EventHandler(this.CylPlunger1_CheckedChanged);
+            resources.ApplyResources(this.chbCylPlunger1, "chbCylPlunger1");
+            this.chbCylPlunger1.Name = "chbCylPlunger1";
+            this.chbCylPlunger1.UseVisualStyleBackColor = true;
+            this.chbCylPlunger1.CheckedChanged += new System.EventHandler(this.CylPlunger1_CheckedChanged);
             // 
             // timerUpdateRlist
             // 
@@ -373,17 +381,74 @@
             this.lblLoginGroup.Name = "lblLoginGroup";
             this.lblLoginGroup.Click += new System.EventHandler(this.Label15_Click);
             // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnStart, "btnStart");
+            this.btnStart.Name = "btnStart";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.btnStop, "btnStop");
+            this.btnStop.Name = "btnStop";
+            this.btnStop.UseVisualStyleBackColor = false;
+            // 
+            // lblStart
+            // 
+            resources.ApplyResources(this.lblStart, "lblStart");
+            this.lblStart.Name = "lblStart";
+            // 
+            // lblStop
+            // 
+            resources.ApplyResources(this.lblStop, "lblStop");
+            this.lblStop.Name = "lblStop";
+            // 
+            // ExportAddress
+            // 
+            resources.ApplyResources(this.ExportAddress, "ExportAddress");
+            this.ExportAddress.Name = "ExportAddress";
+            this.ExportAddress.UseVisualStyleBackColor = true;
+            this.ExportAddress.Click += new System.EventHandler(this.ExportAddress_Click);
+            // 
+            // tBoxTimeout
+            // 
+            resources.ApplyResources(this.tBoxTimeout, "tBoxTimeout");
+            this.tBoxTimeout.Name = "tBoxTimeout";
+            // 
+            // lblTimeout
+            // 
+            resources.ApplyResources(this.lblTimeout, "lblTimeout");
+            this.lblTimeout.Name = "lblTimeout";
+            // 
+            // btnCylPlunger1
+            // 
+            resources.ApplyResources(this.btnCylPlunger1, "btnCylPlunger1");
+            this.btnCylPlunger1.Name = "btnCylPlunger1";
+            this.btnCylPlunger1.UseVisualStyleBackColor = true;
+            this.btnCylPlunger1.Click += new System.EventHandler(this.BtnCylPlunger1_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnCylPlunger1);
+            this.Controls.Add(this.lblTimeout);
+            this.Controls.Add(this.tBoxTimeout);
+            this.Controls.Add(this.ExportAddress);
+            this.Controls.Add(this.lblStart);
+            this.Controls.Add(this.lblStop);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblLoginGroup);
             this.Controls.Add(this.lblLoginName);
             this.Controls.Add(this.lblCurrentUser);
             this.Controls.Add(this.btnCancelAsync);
             this.Controls.Add(this.btnTestAsync);
             this.Controls.Add(this.progressBarDashboard);
-            this.Controls.Add(this.buttonCylPlunger1);
+            this.Controls.Add(this.chbCylPlunger1);
             this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.tbUintValue);
             this.Controls.Add(this.label11);
@@ -471,7 +536,7 @@
         private System.Windows.Forms.TextBox tbUintName;
         private System.Windows.Forms.RichTextBox rtbOutput;
         private System.Data.SQLite.SQLiteCommandBuilder sqLiteCommandBuilder1;
-        private System.Windows.Forms.CheckBox buttonCylPlunger1;
+        private System.Windows.Forms.CheckBox chbCylPlunger1;
         private System.Windows.Forms.Timer timerUpdateRlist;
         private System.Windows.Forms.ProgressBar progressBarDashboard;
         private System.Windows.Forms.Button btnTestAsync;
@@ -479,6 +544,14 @@
         private System.Windows.Forms.Label lblCurrentUser;
         private System.Windows.Forms.Label lblLoginName;
         private System.Windows.Forms.Label lblLoginGroup;
+        internal System.Windows.Forms.Button btnStart;
+        internal System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Label lblStart;
+        private System.Windows.Forms.Label lblStop;
+        private System.Windows.Forms.Button ExportAddress;
+        private System.Windows.Forms.TextBox tBoxTimeout;
+        private System.Windows.Forms.Label lblTimeout;
+        private System.Windows.Forms.Button btnCylPlunger1;
     }
 }
 

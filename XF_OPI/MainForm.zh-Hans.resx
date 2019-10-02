@@ -4203,4 +4203,10 @@
   <data name="Phone" xml:space="preserve">
     <value>电话</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>开始运行</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>停止运行</value>
+  </data>
 </root>

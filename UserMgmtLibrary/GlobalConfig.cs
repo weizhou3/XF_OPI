@@ -20,7 +20,7 @@ namespace XFOPI_Library
         public static ITesterIFConnection IFConnection { get; private set; }
         public static IPlcDataConnection DataConnection { get; private set; }
 
-        public static void InitializeDataConnection()
+        public static void InitializePlcConnection()
         {
             OmronFINsPlcConnector PlcConn = new OmronFINsPlcConnector();
             DataConnection = PlcConn;
@@ -399,7 +399,7 @@ namespace XFOPI_Library
             int startingNumber = 1;
             int result = startingNumber;
             int totalNumer = 100;
-            ProgressReportModel report = new ProgressReportModel();
+            PlcProgressReportModel report = new PlcProgressReportModel();
 
 
                 for (int i = 0; i < totalNumer; i++)

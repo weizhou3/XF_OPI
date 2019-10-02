@@ -10,22 +10,21 @@ namespace XFOPI_Library.PLCConnection
 {
     public class DataWorker
     {
-        public async void RunDataExchange(int timeout, int timeDelay, CancellationToken ct, IProgress<ProgressReportModel> progress)
+        public DataWorker()
+        {
+
+        }
+        public async void RunDataExchange(int timeout, int timeDelay, CancellationToken ct, IProgress<PlcProgressReportModel> progress)
         {
             bool canceled = false;
-            int totalSteps = 2;
-            ProgressReportModel report = new ProgressReportModel();
+            double totalSteps = 2;
+            PlcProgressReportModel report = new PlcProgressReportModel();
+            //PlcProgressReportModel readResult = new PlcProgressReportModel();
 
-            //SortedList<int,int> addrIntervalWR=
-            
-            
             while (true)
             {
                 DateTimeOffset startTime = DateTimeOffset.Now;
-                
-                
-
-                report.PercetageComplete = 0 / totalSteps * 100;
+                report.PercetageComplete =(int) (0 / totalSteps * 100);
                 report.ReadCompleted = false;
                 report.WrtCompleted = false;
                 report.Msg = "Begining to read..";
@@ -37,33 +36,65 @@ namespace XFOPI_Library.PLCConnection
                     break;
                 }
 
+                //1.Get data from PLC all areas then send to UI for updating display
                 try
                 {
+                    //1.Get data from PLC to R list
                     bool rdFinished = await GlobalConfig.DataConnection.GetPlcDataAsync(timeout,
-                        PlcDataMapper.addrIntervalDM, PlcDataMapper.addrIntervalHR, PlcDataMapper.addrIntervalWR, 
+                        PlcDataMapper.addrIntervalDM, PlcDataMapper.addrIntervalHR, PlcDataMapper.addrIntervalWR,
                         ct, progress);
-                    //report.PercetageComplete = 1 / totalSteps * 100;
-                    //report.Msg = "Reading finished.. Begining to write..";
-                    //progress.Report(report);
+                    if (!rdFinished)
+                    {
+                        report.PercetageComplete = (int)(0 / totalSteps * 100);
+                        report.Msg = "Reading failed.. pls retry";
+                        progress.Report(report);
+                        break;
+                    }
+                    report.PercetageComplete = (int) (1 / totalSteps * 100);
+                    report.Msg = "Reading finished.. Begining to write..";
+                    progress.Report(report);
 
-                    SimulateWlist();
-                    
-                    
+                    //2.Get updated data from UI
+                    //SimulateWlist();
+
+
                     var elapsedTime = DateTimeOffset.Now - startTime;
                     int timeLeft = timeout - (int)elapsedTime.TotalMilliseconds;
 
-                    bool wrtFinished = await GlobalConfig.DataConnection.WriteDataToPlcAsync(PlcDataMapper.DataNameValue_Wlist,progress);
-                    //report.PercetageComplete = 2 / totalSteps * 100;
-                    //report.Msg = "Writing finished.. Begining next cycle..";
-                    //progress.Report(report);
+                    //3.Write updated data to PLC
+                    bool wrtFinished = await GlobalConfig.DataConnection.WriteDataToPlcAsync(PlcDataMapper.DataNameValue_Wlist, progress);
+                    report.PercetageComplete = (int) (2 / totalSteps * 100);
+                    
+                    report.Msg = "Writing finished.. Begining next cycle..";
+                    progress.Report(report);
 
                     await Task.Delay(timeDelay);
 
                 }
-                catch (Exception ex)
+                catch (TimeoutException ex)
                 {
-
+                    break;
                 }
+                catch (OperationCanceledException ex)
+                {
+                    //report.ClrReport();
+                    //report.Msg = "The operation has been canceled";
+                    //progress.Report(report);
+                    break;
+                }
+                catch (NotImplementedException ex)
+                {   
+                    //report.ClrReport();
+                    //report.Msg = ex.Message;
+                    //progress.Report(report);
+                    break;
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+
+
             }
             if (canceled)
             {
@@ -71,6 +102,16 @@ namespace XFOPI_Library.PLCConnection
                 progress.Report(report);
                 //throw new OperationCanceledException();
             }
+
+            //2.Collect UI data changed from last cycle and send to PLC for update mem
+
+
+
+
+
+
+
+
         }
 
         private void SimulateWlist()

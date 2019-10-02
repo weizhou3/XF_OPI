@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using XFOPI_Library.Models;
 using XFOPI_Library.Models.SG2000;
+using System.IO;
+using System.Configuration;
+using XFOPI_Library.DataConnection.TextHelpers;
 
 namespace XFOPI_Library.PLCConnection
 {
@@ -238,6 +241,11 @@ namespace XFOPI_Library.PLCConnection
                 //PlcWordModel targetWord = new PlcWordModel();//new
                 PlcBitModel targetBit = new PlcBitModel();
                 targetBit = BitMap.Find(m => m.DataName == typeBool.Name).Bit;
+                if (targetBit.MemArea=="W"&&targetBit.WordAddress==1&&targetBit.BitAddress==15&&targetBit.Value==1)
+                {
+                    ;
+                }
+
 
                 typeBool.SetValue(PlcBits.Find(b => b.MemArea == targetBit.MemArea
                 && b.WordAddress == targetBit.WordAddress
@@ -535,6 +543,19 @@ namespace XFOPI_Library.PLCConnection
                     } while (true);
                 }
             }
+        }
+
+        public static void ExportDataAddresses()
+        {
+            string fileName = "ExportedDataAddresses";
+            List<string> lines = new List<string>();
+
+            foreach (PlcDataNameAddressModel u in DataNameAddresses)
+            {
+                lines.Add($"{u.Name},{u.PLCAddress},{u.Type}");
+            }
+
+            File.WriteAllLines(fileName.FullFilePath(), lines);
         }
     }
 }

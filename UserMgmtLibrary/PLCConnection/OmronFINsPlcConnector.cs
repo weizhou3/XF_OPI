@@ -198,10 +198,139 @@ namespace XFOPI_Library.PLCConnection
         /// <returns></returns>
         public async Task<bool> GetPlcDataAsync(int timeout_ms, 
             SortedList<int, int> addrDM, SortedList<int, int> addrHR, SortedList<int, int> addrWR,
-            CancellationToken ct, IProgress<ProgressReportModel> progress)
+            CancellationToken ct, IProgress<PlcProgressReportModel> progress)
         {
             Dictionary<string, RlistDataModel> retRlist = new Dictionary<string, RlistDataModel>();
-            ProgressReportModel report = new ProgressReportModel();
+            PlcProgressReportModel report = new PlcProgressReportModel();
+            DateTimeOffset startTime = DateTimeOffset.Now;
+            bool timedout = false;
+            bool canceled = false;
+            SortedList<int, string> DMstr = new SortedList<int, string>();
+            SortedList<int, string> HRstr = new SortedList<int, string>();
+            SortedList<int, string> WRstr = new SortedList<int, string>();
+
+            Stopwatch stopwatch1 = new Stopwatch();//debug watch
+            Stopwatch stopwatch2 = new Stopwatch();//debug watch
+            Stopwatch stopwatch3 = new Stopwatch();//debug watch
+            Stopwatch stopwatch4 = new Stopwatch();//debug watch
+            Stopwatch stopwatch5 = new Stopwatch();//debug watch
+
+            if (!mainPort.IsOpen)
+            {
+                mainPort.Open();
+            }
+
+            //try
+            //{
+                await Task.Run(() =>
+                {
+                        stopwatch1.Start();
+                        report.ReadCompleted = OmronFINsProcessor.ReadAllPlcWords(mainPort, addrDM, addrHR, addrWR,
+                            out DMstr, out HRstr, out WRstr);
+                        stopwatch1.Stop();
+
+                        
+                 });
+            try
+            {
+                if (DateTimeOffset.Now.Subtract(startTime).TotalMilliseconds > timeout_ms || timedout)
+                {
+                    timedout = true;
+                    throw new TimeoutException("reading PLC timed out..");
+                }
+                else if (ct.IsCancellationRequested)
+                {
+                    canceled = true;
+                    throw new OperationCanceledException(ct);
+                    //throw new Exception();
+                    //ct.ThrowIfCancellationRequested();
+                    //return false;
+                }
+            }
+            catch (TimeoutException ex)
+            {
+                report.ClrReport();
+                report.Msg = "The operation has timed out";
+                progress.Report(report);
+                return false;
+            }
+            catch (OperationCanceledException ex)
+            {
+                report.ClrReport();
+                report.Msg = "The operation has been canceled";
+                progress.Report(report);
+                return false;
+            }
+            catch (Exception)
+            {
+                report.ClrReport();
+                report.Msg = "Unkmown exception";
+                progress.Report(report);
+                return false;
+            }
+
+            stopwatch2.Start();
+            lock (PlcDataMapper._WordsListLock)
+            {
+                OmronFINsProcessor.UpdateStringToWords(PlcMemArea.WR_bit, WRstr);
+                OmronFINsProcessor.UpdateStringToWords(PlcMemArea.HR_bit, HRstr);
+                OmronFINsProcessor.UpdateStringToWords(PlcMemArea.DM, DMstr);
+            }
+            stopwatch2.Stop();
+
+            stopwatch3.Start();
+            PlcDataMapper.DMWordsToData();//4ms
+            stopwatch3.Stop();
+
+            stopwatch4.Start();
+            PlcDataMapper.BitsToData();//14ms
+            stopwatch4.Stop();
+
+            stopwatch5.Start();
+            lock (PlcDataMapper._RWlistLock)
+            {
+                PlcDataMapper.DataToRList();
+            }
+            stopwatch5.Stop();
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    report.ClrReport();
+            //    report.Msg = "The operation has timed out";
+            //    progress.Report(report);
+            //    return false;
+            //}
+            //catch(OperationCanceledException ex)
+            //{
+            //    report.ClrReport();
+            //    report.Msg = "The operation has been canceled";
+            //    progress.Report(report);
+            //    return false;
+            //}
+            //catch (Exception)
+            //{
+            //    report.ClrReport();
+            //    report.Msg = "Unkmown exception";
+            //    progress.Report(report);
+            //    return false;
+            //}
+
+            //report.PercetageComplete = 1 / 2 * 100;
+            report.Msg = "Reading finished.. Begining to write.."+"readAllWords="+stopwatch1.ElapsedMilliseconds.ToString()
+                +"..updateStrToWords"+stopwatch2.ElapsedMilliseconds.ToString()
+                +"..DMwordsToData"+stopwatch3.ElapsedMilliseconds.ToString()
+                +"..bitsToData"+stopwatch4.ElapsedMilliseconds.ToString()
+                +"..DataToRlist"+stopwatch5.ElapsedMilliseconds.ToString();
+            progress.Report(report);
+            return true;
+        }
+
+        public async Task<bool> GetPlcDataAsync_old(int timeout_ms,
+            SortedList<int, int> addrDM, SortedList<int, int> addrHR, SortedList<int, int> addrWR,
+            CancellationToken ct, IProgress<PlcProgressReportModel> progress)
+        {
+            Dictionary<string, RlistDataModel> retRlist = new Dictionary<string, RlistDataModel>();
+            PlcProgressReportModel report = new PlcProgressReportModel();
             DateTimeOffset startTime = DateTimeOffset.Now;
             bool timedout = false;
             bool canceled = false;
@@ -212,8 +341,8 @@ namespace XFOPI_Library.PLCConnection
 
             await Task.Run(() =>
             {
-                report.ReadCompleted = OmronFINsProcessor.ReadAllPlcWords(mainPort, addrDM,addrHR,addrWR, 
-                    out SortedList<int,string> DMstr, out SortedList<int, string> HRstr, out SortedList<int, string> WRstr);
+                report.ReadCompleted = OmronFINsProcessor.ReadAllPlcWords(mainPort, addrDM, addrHR, addrWR,
+                    out SortedList<int, string> DMstr, out SortedList<int, string> HRstr, out SortedList<int, string> WRstr);
                 lock (PlcDataMapper._WordsListLock)
                 {
                     OmronFINsProcessor.UpdateStringToWords(PlcMemArea.WR_bit, WRstr);
@@ -240,11 +369,11 @@ namespace XFOPI_Library.PLCConnection
         /// </summary>
         /// <param name="Wlist">Wlist to write</param>
         /// <returns>Completed</returns>
-        public async Task<bool> WriteDataToPlcAsync(Dictionary<string, string> Wlist, IProgress<ProgressReportModel>progress)
+        public async Task<bool> WriteDataToPlcAsync(Dictionary<string, string> Wlist, IProgress<PlcProgressReportModel>progress)
         {
             List<PlcWordModel> WrtWordList = new List<PlcWordModel>();
             List<PlcBitModel> WrtBitList = new List<PlcBitModel>();
-            ProgressReportModel report = new ProgressReportModel();
+            PlcProgressReportModel report = new PlcProgressReportModel();
 
             await Task.Run(() =>
             {
